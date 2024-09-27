@@ -1,0 +1,32 @@
+Rex
+66
+Tyrannosaurus rex
+CARNIVORE
+Herb
+5
+Brachiosaurus
+OMNIVORE
+Kolmisarvinaama
+66
+Triceratops
+HERBIVORE
+Tyranniliskojen Kuningas
+66
+Tyrannosaurus rex
+CARNIVORE
+Harjalisko Kattolisko
+149
+Stegosaurus
+OMNIVORE
+Pitkä Kaula Käsivarsilisko
+153
+Brachiosaurus
+HERBIVORE
+Nopea Varas
+75
+Velociraptor
+HERBIVORE
+Leveä Lisko
+215
+Plateosaurus
+HERBIVORE

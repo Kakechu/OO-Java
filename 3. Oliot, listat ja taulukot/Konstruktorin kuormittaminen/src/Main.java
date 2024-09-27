@@ -13,8 +13,20 @@ public class Main {
         Unilelu lelu4 = new Unilelu("Topi", "nalle");
         lelut.add(lelu4);
 
+
+        /*
+         //Tässä kutsutaan staattisia metodeja.
+        Unilelu lelu2 = Unilelu.nimi("Pupunen");
+        lelut.add(lelut2);
+        Unilelu lelu3 = Unilelu.tyyppi("nalle");
+        lelut.add(lelut3);
+         */
+
+
+        // Tulostetaan lelut
         for(Unilelu lelu : lelut) {
             System.out.println(lelu);
         }
+
     }
 }
