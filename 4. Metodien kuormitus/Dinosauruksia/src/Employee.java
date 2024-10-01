@@ -10,8 +10,7 @@ public class Employee {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public String getName() {
-        return name;
+    public String getName() {return name;
     }
 
     public String getJobTitle() {
@@ -20,6 +19,18 @@ public class Employee {
 
     public int getYearsOfExperience() {
         return yearsOfExperience;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public void setYearsOfExperience(int yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
     }
 
     @Override
