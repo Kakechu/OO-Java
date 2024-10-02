@@ -25,14 +25,4 @@ public class Main {
     }
 
 
-    public static void someMethod() {}
-    public static void someMethod(int x) {}
-    public static void someMethod(double x) {}
-    public static void someMethod(String x) {}
-    public static void someMethod(double x, int y) {}
-    public static void someMethodXY (int x, double y) {}
-    public static void someMethodAB(int a, double b) {}
-    public static int someMethodXB(int x, double b) {return 0;}
-
-
 }
