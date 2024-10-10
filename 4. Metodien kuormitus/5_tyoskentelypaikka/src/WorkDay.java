@@ -10,14 +10,15 @@ public enum WorkDay {
         public String getWorkLocation(){
             return "Home";
         }
-        },
+        };
+    /*
     SUNDAY("Off"){
         @Override
         public String getWorkLocation() {
             return "Home";
         }
     };
-
+     */
 
     private String hoursOfWOrk; // oliomuuttuja
 

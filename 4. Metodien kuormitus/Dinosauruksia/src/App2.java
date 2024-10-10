@@ -7,7 +7,21 @@ public class App2 {
 
     public static void main(String[] args) throws FileNotFoundException {
         App2 main = new App2();
-        main.start();
+        //main.start(); //HUOMHUOMHUOM
+
+        //Tehtäväsarja 4 - tehtävän 7 testi
+        Food f1 = new Food("pizza", "yes", 15);
+        System.out.println(f1);
+
+        Ticket t1 = new Ticket(10,  "Kake", "12.12.2024");
+        System.out.println(t1);
+
+
+
+
+
+
+
     }
 
     public void start() throws FileNotFoundException {
