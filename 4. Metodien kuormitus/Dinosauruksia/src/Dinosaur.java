@@ -3,12 +3,20 @@ public class Dinosaur {
     private int age;
     private String species;
     private DinosaurType dinosaurType;
+    private DinosaurClass dinosaurClass;
+    private boolean isHealthy;
+
 
     public Dinosaur(String name, int age, String species, DinosaurType dinosaurType) {
         this.name = name;
         this.age = age;
         this.species = species;
         this.dinosaurType = dinosaurType;
+        this.dinosaurClass = DinosaurClass.LAND; //maalisko oletusarvoksi
+        this.isHealthy = true; //oletusarvoisesti dinot terveitä
+
+        //alkaa lisäys
+        //this.dinosaurEnvironment =
 
     }
 
@@ -28,6 +36,10 @@ public class Dinosaur {
         return dinosaurType;
     }
 
+    public DinosaurClass getDinosaurClass() {
+        return dinosaurClass;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -42,6 +54,24 @@ public class Dinosaur {
 
     public void setDinosaurType(DinosaurType dinosaurType) {
         this.dinosaurType = dinosaurType;
+    }
+
+    public void getSick() {
+        this.isHealthy = false;
+    }
+
+    public void getHealthy() {
+        this.isHealthy = true;
+    }
+
+    public void isHealthy() {
+
+        if (this.isHealthy == true) {
+            System.out.println(this.getName() + " is healthy.");
+        } else {
+            System.out.println(this.getName() + " is sick.");
+        }
+
     }
 
     @Override

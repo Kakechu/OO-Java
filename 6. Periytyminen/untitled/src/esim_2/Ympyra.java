@@ -1,6 +1,6 @@
 package esim_2;
 
-public class Ympyra extends Kuvio {
+public class Ympyra extends Kuvio implements Sininen{
 
     private double sade;
 

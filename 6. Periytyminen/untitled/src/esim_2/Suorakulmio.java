@@ -1,6 +1,6 @@
 package esim_2;
 
-public class Suorakulmio extends Kuvio {
+public class Suorakulmio extends Kuvio implements Punainen {
 
     private double korkeus, leveys;
 

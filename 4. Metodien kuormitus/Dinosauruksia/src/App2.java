@@ -10,12 +10,34 @@ public class App2 {
         //main.start(); //HUOMHUOMHUOM
 
         //Tehtäväsarja 4 - tehtävän 7 testi
+        /*
         Food f1 = new Food("pizza", "yes", 15);
         System.out.println(f1);
 
         Ticket t1 = new Ticket(10,  "Kake", "12.12.2024");
         System.out.println(t1);
 
+         */
+
+        //Tehtäväsarja 5, osa 2: testit
+
+        Dinosaur dino = new FlyingDinosaur("Dinonen", 123, "Dino", DinosaurType.CARNIVORE);
+        dino.getSick();
+        Veterinarian vet = new Veterinarian("Kake", "Vet", 123, "Dinot");
+        vet.checkHealth(dino);
+        vet.giveMedicine(dino);
+        dino.isHealthy();
+
+
+        Dinosaur angryD = new LandDinosaur("Mörkö", 12, "T-Rex", DinosaurType.CARNIVORE);
+        //angryD.roar();
+
+
+        /*
+        TO DO
+        Muuta enumien kysyminen niin, että kirjain riittää, lisää tarkistus
+
+         */
 
 
 
@@ -97,10 +119,30 @@ public class App2 {
         scanner.nextLine();
         System.out.println(" D species: ");
         String species = scanner.nextLine();
-        System.out.println(" Enter dinosaur type: C, H, O: ");
+        System.out.println(" Enter dinosaur type: CARNIVORE, HERBIVORE, OMNIVORE: "); //tähän tarkistus
         DinosaurType dinosaurType = DinosaurType.valueOf(scanner.nextLine());
+        //lentolisko, vesilisko vai maalisko?
+        System.out.println("Enter dinosaur class: FLYING, AQUATIC or LAND?");
+        DinosaurClass dinoClass = DinosaurClass.valueOf(scanner.nextLine().toUpperCase());
 
-        return new Dinosaur(name, age, species, dinosaurType);
+        Dinosaur dinosaur;
+        switch (dinoClass) {
+            case FLYING:
+                dinosaur = new FlyingDinosaur(name, age, species, dinosaurType);
+                break;
+            case AQUATIC:
+                dinosaur = new AquaticDinosaur(name, age, species, dinosaurType);
+                break;
+            case LAND:
+                dinosaur = new LandDinosaur(name, age, species, dinosaurType);
+                break;
+            default:
+                System.out.println("Invalid type. Default type: land dinosaur.");
+                dinosaur = new LandDinosaur(name, age, species, dinosaurType);
+        }
+
+        //return new Dinosaur(name, age, species, dinosaurType);
+        return dinosaur;
     }
 
     public void manageDinosaurs(Park park) {
@@ -154,7 +196,43 @@ public class App2 {
         scanner.nextLine();
 
 
-        return new Employee(name, jobTitle, yearsOfExperience);
+        //ParkManager, SecurityOfficer ja Veterinarian?
+        System.out.println("Enter employee role: MANAGER, SECURITY, VETERINARIAN or CARETAKER?");
+        EmployeeRole employeeRole = EmployeeRole.valueOf(scanner.nextLine().toUpperCase());
+
+        Employee employee;
+        switch (employeeRole) {
+            case MANAGER:
+                System.out.println("Manager bonus: ");
+                double bonus = scanner.nextDouble();
+                scanner.nextLine();
+                employee = new ParkManager(name, jobTitle, yearsOfExperience, bonus);
+                break;
+            case SECURITY:
+                System.out.println("Does the security officer have a gun license? true/false");
+                boolean hasGunLicense = scanner.nextBoolean();
+                scanner.nextLine();
+                employee = new SecurityOfficer(name, jobTitle, yearsOfExperience, hasGunLicense);
+                break;
+            case VETERINARIAN:
+                System.out.println("Vet specialization: ");
+                String specialization = scanner.nextLine();
+                employee = new Veterinarian(name, jobTitle, yearsOfExperience, specialization);
+                //lisää taulukkoon???
+                break;
+            case CARETAKER:
+                System.out.println("Care taker specialization: ");
+                String takesCareOf = scanner.nextLine();
+                employee = new CareTaker(name, jobTitle, yearsOfExperience, takesCareOf);
+                break;
+            default:
+                System.out.println("Invalid type. Defaulting to: care taker.");
+                employee = new CareTaker(name, jobTitle, yearsOfExperience, "general");
+        }
+
+        return employee;
+
+        //return new Employee(name, jobTitle, yearsOfExperience);
     }
 
     public void manageEmployees(Park park) {

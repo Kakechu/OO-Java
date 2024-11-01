@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) {
 
         // a) valueOf()
-        // palauttaa merkkijonoa vastaavan enum-arvon
+        // palauttaa merkkijonoa vastaavan enum-arvon, pikemminkin tyyppi
         // https://medium.com/@ali.habibian04/the-secrets-of-enum-in-java-86316d8252ca
         Month m1;
         m1 = Month.valueOf("JAN");

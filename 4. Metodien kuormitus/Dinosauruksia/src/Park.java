@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,9 +11,13 @@ public class Park {
     String name;
     ArrayList<Employee> employees;
     ArrayList<Dinosaur> dinosaurs;
+    //ArrayList<Dinosaur> flyingDinosaurs; //tehtäväsarja 5, 6
+    Dinosaur[] flyingDinos = new Dinosaur[5]; //Teht 5_6: 6.	Luo Dinosaur-tyyppinen taulukko. Talleta kaikki lentoliskot tähän taulukkoon
+    ArrayList<Employee> veterinarians = new ArrayList<>();
 
     int numberOfEmployees = 0;
     int numberOfDinosaurs = 0;
+    int numberOfFlyingDinos = 0;
 
     public Park(String name) {
         this.name = name;
@@ -62,6 +67,23 @@ public class Park {
         //Tässä ei vielä maksimimäärän tarkistusta
         this.dinosaurs.add(d);
         this.numberOfDinosaurs++;
+        //
+        // tarkista, lentääkö ja mahtuuko, mitä tapahtuu jos ei mahdu??
+        if (d.getDinosaurClass() == DinosaurClass.FLYING && numberOfFlyingDinos < flyingDinos.length) {
+            this.flyingDinos[this.numberOfFlyingDinos] = d;
+            numberOfFlyingDinos++;
+            System.out.println("lentolisko lisätty");
+        }
+
+        // testiprintti
+        /*
+        for (Dinosaur dino : flyingDinos) {
+            if (dino != null) {
+                System.out.println(dino);
+            }
+        }
+
+         */
         return this.dinosaurs;
     }
 
@@ -114,7 +136,7 @@ public class Park {
                 case 't':
                     System.out.println("Give the new type of the dinosaur: ");
                     String type = scanner.nextLine();
-                    if (type == "CARNIVORE" || type == "HERBIVORE" || type == "OMNIVORE") {
+                    if (type.equals("CARNIVORE") || type.equals("HERBIVORE") || type.equals("OMNIVORE")) { //ei ==
                         d.setDinosaurType(DinosaurType.valueOf(type));
                     } else {
                         System.out.println("Enter a valid type.");
@@ -188,12 +210,27 @@ public class Park {
         //Tässä ei vielä maksimimäärän tarkistusta
         this.employees.add(e);
         this.numberOfEmployees++;
+
+        //TÄHÄN LISTAAN LISÄYS
+        if (e.getEmployeeRole() == EmployeeRole.VETERINARIAN) {
+            this.veterinarians.add(e);
+            System.out.println("Eläinlääkäri lisätty");
+        }
+
+        /*
+        for (Employee emp : this.veterinarians) {
+            System.out.println(emp);
+        }
+
+         */
+
         return this.employees;
     }
 
 
     public ArrayList<Employee> removeEmployee(Employee o) {
         // Etsi ensin se olio, joka halutaan poistaa
+        //minimimäärän tarkistus
         //System.out.println("Anna poistettavan tyÃ¶ntekijÃ¤n nimi: ");
         //String name = scanner.nextLine();
         if (this.employees.contains(o)) {

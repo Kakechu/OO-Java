@@ -1,6 +1,6 @@
 package esim_2;
 
-public class Kolmio extends Kuvio {
+public class Kolmio extends Kuvio implements Punainen {
     private double kanta, korkeus;
 
     public Kolmio(double x, double y, String teksti, double kanta, double korkeus) {

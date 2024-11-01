@@ -3,7 +3,6 @@ public class Employee {
     private String name;
     private String jobTitle;
     private int yearsOfExperience;
-    private EmployeeRole employeeRole;
 
     public Employee(String name, String jobTitle, int yearsOfExperience) {
         this.name = name;
@@ -11,7 +10,8 @@ public class Employee {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public String getName() {return name;
+    public String getName() {
+        return name;
     }
 
     public String getJobTitle() {
@@ -20,26 +20,6 @@ public class Employee {
 
     public int getYearsOfExperience() {
         return yearsOfExperience;
-    }
-
-    public EmployeeRole getEmployeeRole() {
-        return employeeRole;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public void setYearsOfExperience(int yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
-
-    public void setEmployeeRole(EmployeeRole employeeRole) {
-        this.employeeRole = employeeRole;
     }
 
     @Override
