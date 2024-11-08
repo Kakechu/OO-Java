@@ -27,10 +27,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-#Luentomuistiinpanot
-*.docx
-*.pdf
-*.png
-
-/Ryhmätyö

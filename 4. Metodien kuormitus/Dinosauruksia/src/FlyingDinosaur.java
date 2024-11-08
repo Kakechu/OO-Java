@@ -1,12 +1,14 @@
-public class FlyingDinosaur extends Dinosaur implements Flying {
+public class FlyingDinosaur extends Dinosaur {
 
     private boolean hasFeathers;
     private DinosaurClass dinosaurClass = DinosaurClass.FLYING;
 
-    public FlyingDinosaur(String name, int age, String species, DinosaurType dinosaurType) {
-        super(name, age, species, dinosaurType);
+    public FlyingDinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
+        super(name, age, species, liveOn, mainFoodSource);
         this.hasFeathers = true;
+        this.dinosaurClass = DinosaurClass.FLYING;
     }
+    /*
     @Override
     public void fly() {
         System.out.println(this.getName() + " is flying.");
@@ -21,11 +23,12 @@ public class FlyingDinosaur extends Dinosaur implements Flying {
     public void land() {
         System.out.println(this.getName() + " landed.");
     }
-
+*/
     @Override
     public DinosaurClass getDinosaurClass() {
         return dinosaurClass;
     }
+
 
     @Override
     public String toString() {

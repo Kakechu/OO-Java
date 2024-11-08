@@ -2,21 +2,46 @@ public class Dinosaur {
     private String name;
     private int age;
     private String species;
-    private DinosaurType dinosaurType;
-    private DinosaurClass dinosaurClass;
-    private boolean isHealthy;
+    private String liveOn; // UML-lisäys
+    private MainFoodSource mainFoodSource;
 
+    private DinosaurClass dinosaurClass; //Ei virallisessa versiossa
+    //private boolean isHealthy; //Ei virallisessa versiossa
 
-    public Dinosaur(String name, int age, String species, DinosaurType dinosaurType) {
+    public Dinosaur() { // UML-lisäys
+    }
+
+    // tämä konstruktori tiedostosta lukemista varten
+    public Dinosaur(String name, int age, String species, MainFoodSource mainFoodSource) {
         this.name = name;
         this.age = age;
         this.species = species;
-        this.dinosaurType = dinosaurType;
+        this.liveOn = "Land";
+        this.mainFoodSource = mainFoodSource;
         this.dinosaurClass = DinosaurClass.LAND; //maalisko oletusarvoksi
-        this.isHealthy = true; //oletusarvoisesti dinot terveitä
+        //this.isHealthy = true; //oletusarvoisesti dinot terveitä
 
-        //alkaa lisäys
-        //this.dinosaurEnvironment =
+
+    }
+    // tämä konstruktori
+    public Dinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
+        this.name = name;
+        this.age = age;
+        this.species = species;
+        this.liveOn = liveOn;
+        this.mainFoodSource = mainFoodSource;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // sama viite
+        if (obj == null || this.getClass() != obj.getClass()) return false; // eri luokka tai null
+
+        Dinosaur d = (Dinosaur) obj; // tyyppimuunnos
+        return this.name.equalsIgnoreCase(d.getName()) &&
+                this.age == d.getAge() &&
+                this.species.equalsIgnoreCase(d.getSpecies()) &&
+                this.liveOn.equalsIgnoreCase(d.getLiveOn()) &&
+                this.mainFoodSource == d.getMainFoodSource();
 
     }
 
@@ -32,9 +57,20 @@ public class Dinosaur {
         return species;
     }
 
-    public DinosaurType getDinosaurType() {
-        return dinosaurType;
+    public String getLiveOn() {
+        return liveOn;
     }
+
+    public MainFoodSource getMainFoodSource() {
+        return mainFoodSource;
+    }
+
+    /*
+    public MainFoodSource getMainFoodSource() {
+        return mainFoodSource;
+    }
+
+     */
 
     public DinosaurClass getDinosaurClass() {
         return dinosaurClass;
@@ -52,10 +88,11 @@ public class Dinosaur {
         this.species = species;
     }
 
-    public void setDinosaurType(DinosaurType dinosaurType) {
-        this.dinosaurType = dinosaurType;
+    public void setMainFoodSource(MainFoodSource mainFoodSource) {
+        this.mainFoodSource = mainFoodSource;
     }
 
+    /*
     public void getSick() {
         this.isHealthy = false;
     }
@@ -74,13 +111,15 @@ public class Dinosaur {
 
     }
 
+     */
+
     @Override
     public String toString() {
         return "Dinosaur{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", species='" + species + '\'' +
-                ", dinosaurType=" + dinosaurType +
+                ", mainFoodSource=" + mainFoodSource +
                 '}';
     }
 }

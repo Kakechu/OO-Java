@@ -1,10 +1,19 @@
-public class LandDinosaur extends Dinosaur implements Aggressive {
+public class LandDinosaur extends Dinosaur {
     private boolean isPredator;
     private DinosaurClass dinosaurClass;
 
-    public LandDinosaur(String name, int age, String species, DinosaurType dinosaurType) {
-        super(name, age, species, dinosaurType);
+    /*
+    public LandDinosaur(String name, int age, String species, MainFoodSource mainFoodSource) {
+        super(name, age, species, mainFoodSource);
         this.isPredator = true;
+        this.dinosaurClass = DinosaurClass.LAND;
+    }
+
+     */
+
+    public LandDinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
+        super(name, age, species, liveOn, mainFoodSource);
+        this.isPredator = false;
         this.dinosaurClass = DinosaurClass.LAND;
     }
 
@@ -14,6 +23,7 @@ public class LandDinosaur extends Dinosaur implements Aggressive {
     }
 
 
+/*
     @Override
     public void roar() {
         System.out.println("Rrrrooooaaaarrr");
@@ -23,6 +33,8 @@ public class LandDinosaur extends Dinosaur implements Aggressive {
     public void attack() {
         System.out.println("Chaaarrggeee");
     }
+
+ */
 
     @Override
     public String toString() {

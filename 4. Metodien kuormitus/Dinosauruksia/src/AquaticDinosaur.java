@@ -2,11 +2,13 @@ public class AquaticDinosaur extends Dinosaur {
     private boolean canSwim;
     private DinosaurClass dinosaurClass;
 
-    public AquaticDinosaur(String name, int age, String species, DinosaurType dinosaurType) {
-        super(name, age, species, dinosaurType);
+    public AquaticDinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
+        super(name, age, species, liveOn, mainFoodSource);
         this.canSwim = true;
         this.dinosaurClass = DinosaurClass.AQUATIC;
     }
+
+
 
     @Override
     public DinosaurClass getDinosaurClass() {

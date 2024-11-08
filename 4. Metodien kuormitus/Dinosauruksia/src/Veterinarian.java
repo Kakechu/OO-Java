@@ -1,4 +1,4 @@
-public class Veterinarian extends Employee implements VetWork {
+public class Veterinarian extends Employee { //implements VetWork
     private String specialization;
 
     public Veterinarian(String name, String jobTitle, int yearsOfExperience, String specialization) {
@@ -7,7 +7,7 @@ public class Veterinarian extends Employee implements VetWork {
         super.setEmployeeRole(EmployeeRole.VETERINARIAN);
 
     }
-
+/*
     public void checkHealth(Dinosaur d) {
         d.isHealthy();
         //System.out.println(d.getName() + " is healthy: " + d.isHealthy());
@@ -19,6 +19,8 @@ public class Veterinarian extends Employee implements VetWork {
         d.isHealthy();
         //System.out.println(d.getName() + " is now healthy " + d.isHealthy());
     }
+
+ */
 
     @Override
     public String toString() {

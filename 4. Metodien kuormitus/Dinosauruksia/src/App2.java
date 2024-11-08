@@ -7,7 +7,7 @@ public class App2 {
 
     public static void main(String[] args) throws FileNotFoundException {
         App2 main = new App2();
-        //main.start(); //HUOMHUOMHUOM
+        main.start(); //HUOMHUOMHUOM
 
         //Tehtäväsarja 4 - tehtävän 7 testi
         /*
@@ -20,7 +20,7 @@ public class App2 {
          */
 
         //Tehtäväsarja 5, osa 2: testit
-
+/*
         Dinosaur dino = new FlyingDinosaur("Dinonen", 123, "Dino", DinosaurType.CARNIVORE);
         dino.getSick();
         Veterinarian vet = new Veterinarian("Kake", "Vet", 123, "Dinot");
@@ -32,16 +32,7 @@ public class App2 {
         Dinosaur angryD = new LandDinosaur("Mörkö", 12, "T-Rex", DinosaurType.CARNIVORE);
         //angryD.roar();
 
-
-        /*
-        TO DO
-        Muuta enumien kysyminen niin, että kirjain riittää, lisää tarkistus
-
-         */
-
-
-
-
+*/
 
 
     }
@@ -58,13 +49,30 @@ public class App2 {
         //System.out.println(park);
         park.readDinosaursFromFile();
         System.out.println(park);
-
+/*
         while (true) {
             displayMenu(park.getName());
             int choice = scanner.nextInt();
             scanner.nextLine();
             handleMenuChoice(choice, park);
         }
+
+ */
+
+        while (true) {
+            displayMenu(park.getName());
+            int choice;
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                System.out.println("Invalid input. Please enter a number between 1 and 6.");
+                scanner.nextLine();
+                continue;
+            }
+            handleMenuChoice(choice, park);
+        }
+
     }
 
     public void displayMenu(String parkName) {
@@ -98,6 +106,8 @@ public class App2 {
             case 6:
                 System.out.println("Exiting...");
                 System.exit(0);
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 6.");
         }
     }
 
@@ -119,31 +129,73 @@ public class App2 {
         scanner.nextLine();
         System.out.println(" D species: ");
         String species = scanner.nextLine();
-        System.out.println(" Enter dinosaur type: CARNIVORE, HERBIVORE, OMNIVORE: "); //tähän tarkistus
-        DinosaurType dinosaurType = DinosaurType.valueOf(scanner.nextLine());
-        //lentolisko, vesilisko vai maalisko?
-        System.out.println("Enter dinosaur class: FLYING, AQUATIC or LAND?");
-        DinosaurClass dinoClass = DinosaurClass.valueOf(scanner.nextLine().toUpperCase());
 
+        MainFoodSource mainFoodSource;
+        while (true) {
+            System.out.println(" Enter the main food source: C(ARNIVORE), H(ERBIVORE), O(MNIVORE): ");
+            String foodChoice = scanner.nextLine().toUpperCase();
+
+            switch (foodChoice.charAt(0)) {
+                case 'C':
+                    mainFoodSource = MainFoodSource.CARNIVORE;
+                    break;
+                case 'H':
+                    mainFoodSource = MainFoodSource.HERBIVORE;
+                    break;
+                case 'O':
+                    mainFoodSource = MainFoodSource.OMNIVORE;
+                    break;
+                default:
+                    System.out.println("Please enter a valid choice.");
+                    continue; // palataan silmukan alkuun
+            }
+            break;
+        }
+
+        Dinosaur dinosaur;
+        while (true) {
+            System.out.println(" D lives on l(and), w(ater) or s(ky)?");
+            String liveOn = scanner.nextLine().toLowerCase();
+            switch (liveOn) {
+                case "s":
+                    dinosaur = new FlyingDinosaur(name, age, species, liveOn, mainFoodSource);
+                    break;
+                case "w":
+                    dinosaur = new AquaticDinosaur(name, age, species, liveOn, mainFoodSource);
+                    break;
+                case "l":
+                    dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
+                    break;
+                default:
+                    System.out.println("Please enter a valid type.");
+                    continue;
+            }
+            break;
+        }
+        /*
         Dinosaur dinosaur;
         switch (dinoClass) {
             case FLYING:
-                dinosaur = new FlyingDinosaur(name, age, species, dinosaurType);
+                dinosaur = new FlyingDinosaur(name, age, species, liveOn, mainFoodSource);
                 break;
             case AQUATIC:
-                dinosaur = new AquaticDinosaur(name, age, species, dinosaurType);
+                dinosaur = new AquaticDinosaur(name, age, species, liveOn, mainFoodSource);
                 break;
             case LAND:
-                dinosaur = new LandDinosaur(name, age, species, dinosaurType);
+                dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
                 break;
             default:
                 System.out.println("Invalid type. Default type: land dinosaur.");
-                dinosaur = new LandDinosaur(name, age, species, dinosaurType);
+                dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
         }
+         */
+
 
         //return new Dinosaur(name, age, species, dinosaurType);
         return dinosaur;
     }
+
+
 
     public void manageDinosaurs(Park park) {
         System.out.println("All our dinosaurs: ");
@@ -153,25 +205,53 @@ public class App2 {
         }
 
 
-        System.out.println("a(dd) - r(remove) - u(pdate) - c(ancel)");
+        System.out.println("a(dd) - r(emove) - u(pdate) - c(ancel)");
         String answer = scanner.nextLine();
 
         switch (answer.charAt(0)) {
             case 'a': //yksittäinen merkki, yksinkertaiset hipsut, mjonoissa kaksinkertaisit
-                // voidaanko uusi dino lisätä
-                // jos voidaan
-                Dinosaur d = askDinosaurInfo();
-                //park.dinosaurs.add(d);
-                park.addDinosaur(d);
+
+                // Onko tarpeeksi työntekijöitä?
+                if (park.getNumberOfDinosaurs() < park.getNumberOfEmployees() / park.getEmployeesToDinosaur() ) {
+                    System.out.println("You can add dino. You need " + park.getMinAmountOfEmployees() + " employees.");
+                    System.out.println("Dinos: " + park.getNumberOfDinosaurs() + " , employees: " + park.getNumberOfEmployees());
+                    Dinosaur d = askDinosaurInfo();
+
+                    // Varmistetaan, ettei samaa dinoa jo ole.
+
+                    if (d != null) {
+                        if (park.getDinosaurs().contains(d)) {
+                            System.out.println("This dinosaur already exists.");
+                        } else {
+                            park.addDinosaur(d);
+                            System.out.println("Dinosaur added successfully.");
+                        }
+                    }
+
+                } else {
+                    System.out.println("Not enough employees to take care of dino.");
+                }
+
+
                 break;
             case 'r':
                 System.out.println("There are currently " + park.getDinosaurs().size() + " dinosaurs in the park.");
-                System.out.println("Which dinosaur do you want to remove? Give a number.");
-                int i = scanner.nextInt() - 1; //Käyttäjän silmissä numerointi luultavasti alkaa ykkösestä, ei nollasta.
-                scanner.nextLine();
+                System.out.println("Which dinosaur do you want to remove? Give a name or a number.");
+                String toRemove = scanner.nextLine().toLowerCase();
 
-                int index = 3;
-                park.removeDinosaur(i);
+                if (isNumeric(toRemove)) {
+                    int numAns = Integer.parseInt(toRemove) -1; //Käyttäjän silmissä numerointi alkaa ykkösestä, ei nollasta: muutetaan indeksiksi
+                    park.removeDinosaur(numAns);
+                } else {
+                    park.removeDinosaur(toRemove);
+                }
+
+
+                //int i = scanner.nextInt() - 1; //Käyttäjän silmissä numerointi luultavasti alkaa ykkösestä, ei nollasta.
+                //scanner.nextLine();
+
+                //int index = 3;
+                //park.removeDinosaur(i);
 
                 break;
             case 'u':
@@ -186,53 +266,71 @@ public class App2 {
         }
     }
 
+    // Metodi sen määrittämiseen, onko käyttäjän syöte int vai String. Tarvitaan esim. poistossa.
+    private static boolean isNumeric(String answer) {
+        try {
+            Integer.parseInt(answer);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
     public Employee askEmployeeInfo() {
         System.out.println(" E name: ");
         String name = scanner.nextLine();
         System.out.println(" E job title: ");
-        String jobTitle = scanner.nextLine();
+        String jobTitle = scanner.nextLine().toLowerCase();
+
         System.out.println(" E years of experience: ");
         int yearsOfExperience = scanner.nextInt();
         scanner.nextLine();
 
+        //Employee employee1 = new Employee(name, jobTitle, yearsOfExperience);
 
         //ParkManager, SecurityOfficer ja Veterinarian?
-        System.out.println("Enter employee role: MANAGER, SECURITY, VETERINARIAN or CARETAKER?");
-        EmployeeRole employeeRole = EmployeeRole.valueOf(scanner.nextLine().toUpperCase());
+
+        System.out.println("Enter employee role: M(ANAGER), S(ECURITY), V(ETERINARIAN) or C(ARETAKER)?");
+        String roleAnswer = scanner.nextLine().toUpperCase();
+        EmployeeRole employeeRole;
+        //EmployeeRole employeeRole = EmployeeRole.valueOf(scanner.nextLine().toUpperCase());
+
 
         Employee employee;
-        switch (employeeRole) {
-            case MANAGER:
-                System.out.println("Manager bonus: ");
-                double bonus = scanner.nextDouble();
-                scanner.nextLine();
-                employee = new ParkManager(name, jobTitle, yearsOfExperience, bonus);
-                break;
-            case SECURITY:
-                System.out.println("Does the security officer have a gun license? true/false");
-                boolean hasGunLicense = scanner.nextBoolean();
-                scanner.nextLine();
-                employee = new SecurityOfficer(name, jobTitle, yearsOfExperience, hasGunLicense);
-                break;
-            case VETERINARIAN:
-                System.out.println("Vet specialization: ");
-                String specialization = scanner.nextLine();
-                employee = new Veterinarian(name, jobTitle, yearsOfExperience, specialization);
-                //lisää taulukkoon???
-                break;
-            case CARETAKER:
-                System.out.println("Care taker specialization: ");
-                String takesCareOf = scanner.nextLine();
-                employee = new CareTaker(name, jobTitle, yearsOfExperience, takesCareOf);
-                break;
-            default:
-                System.out.println("Invalid type. Defaulting to: care taker.");
-                employee = new CareTaker(name, jobTitle, yearsOfExperience, "general");
+        while (true) {
+            switch (roleAnswer) {
+                case "M":
+                    System.out.println("Manager bonus: ");
+                    double bonus = scanner.nextDouble();
+                    scanner.nextLine();
+                    employee = new ParkManager(name, jobTitle, yearsOfExperience, bonus);
+                    break;
+                case "S":
+                    System.out.println("Does the security officer have a gun license? true/false");
+                    boolean hasGunLicense = scanner.nextBoolean();
+                    scanner.nextLine();
+                    employee = new SecurityOfficer(name, jobTitle, yearsOfExperience, hasGunLicense);
+                    break;
+                case "V":
+                    System.out.println("Vet specialization: ");
+                    String specialization = scanner.nextLine();
+                    employee = new Veterinarian(name, jobTitle, yearsOfExperience, specialization);
+                    //lisää taulukkoon???
+                    break;
+                case "C":
+                    System.out.println("Care taker specialization: ");
+                    String takesCareOf = scanner.nextLine();
+                    employee = new CareTaker(name, jobTitle, yearsOfExperience, takesCareOf);
+                    break;
+                default:
+                    System.out.println("Please enter a valid type.");
+                    continue;
+            }
+            break;
         }
-
         return employee;
 
-        //return new Employee(name, jobTitle, yearsOfExperience);
     }
 
     public void manageEmployees(Park park) {
@@ -241,22 +339,47 @@ public class App2 {
             System.out.println(e);
         }
 
-        System.out.println("a(dd) - r(remove) - u(pdate) - c(ancel)");
+        System.out.println("a(dd) - r(emove) - u(pdate) - c(ancel)");
         String answer = scanner.nextLine();
 
         switch (answer.charAt(0)) {
             case 'a':
                 // voidaanko uusi työntekijä lisätä?
                 // jos voidaan
+
+
                 Employee e = askEmployeeInfo();
-                //park.dinosaurs.add(d);
-                park.addEmployee(e);
+                if (e != null) {
+                    if (park.getEmployees().contains(e)) {
+                        System.out.println("This employee already exists.");
+                    } else {
+                        park.addEmployee(e);
+                        System.out.println("Employee added successfully.");
+                    }
+                }
+
                 break;
             case 'r':
-                System.out.println("Which employee do you want to remove? Give a name: ");
-                String name = scanner.nextLine();
-                Employee empToRemove = park.findEmployee(name);
-                park.removeEmployee(empToRemove);
+                System.out.println("Your park needs " + park.getEmployeesToDinosaur() * park.getNumberOfDinosaurs() + " employees.");
+                if (park.getEmployees().size() < park.getEmployeesToDinosaur() * park.getDinosaurs().size()) {
+                    System.out.println("You can't go below the minimum amount of employees.");
+                    break;
+                }
+                System.out.println("There are currently " + park.getEmployees().size() + " employees in the park.");
+                for (Employee employee : park.getEmployees()) {
+                    System.out.println(employee);
+                }
+                System.out.println("Which employee do you want to remove? Give a name or a number.");
+                String empToRemove = scanner.nextLine();
+                if (isNumeric(empToRemove)) {
+                    int empNum = Integer.parseInt(empToRemove) - 1;
+                    park.removeEmployee(empNum);
+                } else {
+                    park.removeEmployee(empToRemove);
+                }
+
+                //Employee empToRemove = park.findEmployee(name);
+                //park.removeEmployee(empToRemove);
                 break;
             case 'u':
                 System.out.println("Give the name of the employee: ");
@@ -268,7 +391,7 @@ public class App2 {
             case 'c':
                 break;
         }
-
     }
+
 
 }

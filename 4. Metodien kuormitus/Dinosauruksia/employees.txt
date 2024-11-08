@@ -13,3 +13,43 @@ Cashier
 Annukka
 The Big Boss
 15
+Kake
+Pomo
+12
+Rölli
+Veterinarian
+6
+Jonne
+Security
+5
+Antti
+Caretaker
+2
+Niilo
+Caretaker
+5
+Jyri
+Veterinarian
+1
+Pipsa
+Park Ranger
+5
+Topi
+Security
+3
+John
+Veterinarian
+3
+Kaisa
+Manager
+32
+Lotta
+Caretaker
+1
+Pena
+Park ranger
+23
+Mara
+Security
+22
+

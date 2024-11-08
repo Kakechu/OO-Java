@@ -8,16 +8,20 @@ public class Park {
 
     public static Scanner scanner = new Scanner(System.in);
 
-    String name;
-    ArrayList<Employee> employees;
-    ArrayList<Dinosaur> dinosaurs;
-    //ArrayList<Dinosaur> flyingDinosaurs; //tehtäväsarja 5, 6
-    Dinosaur[] flyingDinos = new Dinosaur[5]; //Teht 5_6: 6.	Luo Dinosaur-tyyppinen taulukko. Talleta kaikki lentoliskot tähän taulukkoon
-    ArrayList<Employee> veterinarians = new ArrayList<>();
+    private String name;
+    private ArrayList<Employee> employees;
+    private ArrayList<Dinosaur> dinosaurs;
 
-    int numberOfEmployees = 0;
-    int numberOfDinosaurs = 0;
-    int numberOfFlyingDinos = 0;
+    int maxAmountOfDinosaurs = 12;
+    int employeesToDinosaur = 2;
+
+    //ArrayList<Dinosaur> flyingDinosaurs; //tehtäväsarja 5, 6
+    private Dinosaur[] flyingDinos = new Dinosaur[5]; //Teht 5_6: 6.	Luo Dinosaur-tyyppinen taulukko. Talleta kaikki lentoliskot tähän taulukkoon
+    private ArrayList<Employee> veterinarians = new ArrayList<>();
+
+    private int numberOfEmployees = 0;
+    private int numberOfDinosaurs = 0;
+    private int numberOfFlyingDinos = 0;
 
     public Park(String name) {
         this.name = name;
@@ -31,6 +35,20 @@ public class Park {
         return name;
     }
 
+    public int getEmployeesToDinosaur() {
+        return employeesToDinosaur;
+    }
+    public int getMinAmountOfEmployees() {
+        return this.employeesToDinosaur * this.numberOfDinosaurs;
+    }
+
+    public int getNumberOfDinosaurs() {
+        return numberOfDinosaurs;
+    }
+
+    public int getNumberOfEmployees() {
+        return numberOfEmployees;
+    }
 
     // dinosaur related stuff
 
@@ -46,8 +64,8 @@ public class Park {
             String name = FScanner.nextLine();
             int age = Integer.parseInt(FScanner.nextLine());
             String species = FScanner.nextLine();
-            DinosaurType dinosaurType = DinosaurType.valueOf(FScanner.nextLine());
-            dinosaurs.add(new Dinosaur(name, age, species, dinosaurType));
+            MainFoodSource mainFoodSource = MainFoodSource.valueOf(FScanner.nextLine());
+            dinosaurs.add(new Dinosaur(name, age, species, mainFoodSource));
         }
         //System.out.println("The information of all dinosaurs is read.");
         FScanner.close();
@@ -75,6 +93,7 @@ public class Park {
             System.out.println("lentolisko lisätty");
         }
 
+
         // testiprintti
         /*
         for (Dinosaur dino : flyingDinos) {
@@ -86,7 +105,67 @@ public class Park {
          */
         return this.dinosaurs;
     }
+// kuormitetaan: indeksin tai nimen perusteella
+/*
+    public ArrayList<Dinosaur> removeDinosaur(String name) {
 
+        return this.dinosaurs;
+    }
+*/
+
+    public void removeDinosaur(String name) {
+        boolean found = false;
+        for (int i = 0; i < this.dinosaurs.size(); i++) {
+            Dinosaur d = this.dinosaurs.get(i);
+            if (d.getName().toLowerCase().equals(name.toLowerCase())) { // Vertailu nimien suhteen, ei ole case sensitive
+                this.dinosaurs.remove(i);
+                this.numberOfDinosaurs--;
+                System.out.println("Removed " + d.getName());
+                found = true;
+                break; // Poistutaan silmukasta, kun dinosaurus on löytynyt ja poistettu
+            }
+        }
+        if (!found) {
+            System.out.println("no such dino");
+        }
+    }
+        /*
+        for (Dinosaur d : this.dinosaurs) {
+            if (d.getName().toLowerCase().equals(name)) {
+                this.dinosaurs.remove(d);
+                this.numberOfDinosaurs--;
+                break;
+            } else {
+                System.out.println("no such dino");
+                break;
+            }
+        }
+
+         */
+
+
+    public void removeDinosaur(int index) {
+        if (this.dinosaurs.size() > index && index >= 0) { //tarkistetaan, ettei indeksi mene yli tai alle listan koon
+            if (this.dinosaurs.get(index) != null) {
+                // tarkistetaan, että halutaan varmasti poistaa
+                System.out.println("Are you sure you want to remove " + this.dinosaurs.get(index).getName() + "? Type yes or no.");
+                String answer = scanner.nextLine().toLowerCase();
+                if (answer.equals("yes")) {
+                    System.out.println("Removing " + this.dinosaurs.get(index));
+                    this.dinosaurs.remove(index);
+                    this.numberOfDinosaurs--;
+                } else {
+                    System.out.println("No removing.");
+                }
+            } else {
+                System.out.println("The dinosaur doesn't exist and cannot be removed.");
+            }
+            } else {
+            System.out.println("The dinosaur doesn't exist and cannot be removed.");
+        }
+    }
+
+/*
     public ArrayList<Dinosaur> removeDinosaur(int index) {
         if (this.dinosaurs.size() > index && index >= 0) {
             System.out.println("Are you sure you want to remove " + this.dinosaurs.get(index).getName());
@@ -97,20 +176,24 @@ public class Park {
                 System.out.println("No removing.");
             }
 
-
         } else {
             System.out.println("The dinosaur doesn't exist and cannot be removed.");
         }
         return this.dinosaurs;
-
-
     }
 
+
+ */
+
+
+
+
+//jos toimiikin indeksin tai nimen perusteella - metodin kuormitus
     public void updateDinosaur(Dinosaur d) {
         if (!(d == null)) {
             System.out.println("You want to update the dinosaur " + d);
             System.out.println("What would you like to update?");
-            System.out.println("n(ame) - a(ge) - s(pecies) - t(type) - c(ancel)");
+            System.out.println("n(ame) - a(ge) - c(ancel)");
             String answer = scanner.nextLine();
 
             switch (answer.charAt(0)) {
@@ -125,23 +208,26 @@ public class Park {
                     int age = scanner.nextInt();
                     scanner.nextLine();
                     d.setAge(age);
-                    System.out.println("The dino is no " + d.getAge() + " years old.");
+                    System.out.println("The dino is now " + d.getAge() + " years old.");
                     break;
+                    /*
                 case 's':
                     System.out.println("Give the new species: ");
                     String species = scanner.nextLine();
                     d.setSpecies(species);
                     System.out.println("The dinosaur's species is now " + d.getSpecies());
                     break;
-                case 't':
-                    System.out.println("Give the new type of the dinosaur: ");
+
+                case 'm':
+                    System.out.println("Give the new main food source of the dinosaur: ");
                     String type = scanner.nextLine();
                     if (type.equals("CARNIVORE") || type.equals("HERBIVORE") || type.equals("OMNIVORE")) { //ei ==
-                        d.setDinosaurType(DinosaurType.valueOf(type));
+                        d.setMainFoodSource(MainFoodSource.valueOf(type));
                     } else {
                         System.out.println("Enter a valid type.");
                     }
                     break;
+                    */
                 case 'c':
                     break;
 
@@ -208,6 +294,7 @@ public class Park {
 
     public ArrayList<Employee> addEmployee(Employee e) {
         //Tässä ei vielä maksimimäärän tarkistusta
+
         this.employees.add(e);
         this.numberOfEmployees++;
 
@@ -246,23 +333,65 @@ public class Park {
             System.out.println("The employee doesn't exist.");
         }
         return this.employees;
+    }
+
+    public void removeEmployee(String name) {
+        boolean found = false;
+        for (int i = 0; i < this.employees.size(); i++) {
+            Employee e = this.employees.get(i);
+
+            if (e.getName().toLowerCase().equals(name.toLowerCase())) { // Vertailu nimien suhteen, ei ole case sensitive
+                if (e instanceof ParkManager) {
+                    System.out.println("Cannot remove " + e.getName() + " because they are the park manager.");
+                    found = true; // johtaja löytyi
+                    break;
+                } else {
+                    this.employees.remove(i);
+                    this.numberOfEmployees--;
+                    System.out.println("Removed " + e.getName());
+                    found = true;
+                    break; // Poistutaan silmukasta, kun työntekijä on löytynyt ja poistettu
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("no such employee");
+        }
 
     }
+
+    public void removeEmployee(int index) {
+        if (this.employees.size() > index && index >= 0) { //tarkistetaan, ettei indeksi mene yli tai alle listan koon
+            if (this.employees.get(index) != null) {
+                // tarkistetaan, että halutaan varmasti poistaa
+                System.out.println("Are you sure you want to remove " + this.employees.get(index).getName() + "? Type yes or no.");
+                String answer = scanner.nextLine().toLowerCase();
+                if (answer.equals("yes")) {
+                    System.out.println("Removing " + this.employees.get(index));
+                    this.employees.remove(index);
+                    this.numberOfEmployees--;
+                } else {
+                    System.out.println("No removing.");
+                }
+            } else {
+                System.out.println("The employee doesn't exist and cannot be removed.");
+            }
+        } else {
+            System.out.println("The employee doesn't exist and cannot be removed.");
+        }
+    }
+
+
+
 
     public void updateEmployee(Employee e) {
         if (!(e == null)) {
             System.out.println("You want to update the employee " + e);
             System.out.println("What would you like to update?");
-            System.out.println("n(ame) - j(ob title) - y(ears of experience) - c(ancel)");
+            System.out.println("j(ob title) - y(ears of experience) - c(ancel)");
             String answer = scanner.nextLine();
 
             switch (answer.charAt(0)) {
-                case 'n':
-                    System.out.println("Give a new name: ");
-                    String name = scanner.nextLine();
-                    e.setName(name);
-                    System.out.println("The employee's name is now " + e.getName());
-                    break;
                 case 'j':
                     System.out.println("Give a new job title: ");
                     String title = scanner.nextLine();

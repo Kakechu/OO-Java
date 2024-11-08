@@ -26,10 +26,18 @@ public class Employee {
         return employeeRole;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // sama viite
+        if (obj == null || this.getClass() != obj.getClass()) return false; // eri luokka tai null
+
+        Employee e = (Employee) obj; // tyyppimuunnos
+        return this.name.equalsIgnoreCase(e.getName()) &&
+                this.jobTitle.equalsIgnoreCase(e.getJobTitle()) &&
+                this.yearsOfExperience == e.getYearsOfExperience();
     }
 
+    // Näitä ei virallisessa versiossa
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }

@@ -1,4 +1,4 @@
-public enum DinosaurType {
+public enum MainFoodSource {
     HERBIVORE,
     CARNIVORE,
     OMNIVORE
