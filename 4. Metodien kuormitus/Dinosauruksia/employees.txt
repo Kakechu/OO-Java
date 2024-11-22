@@ -52,4 +52,28 @@ Park ranger
 Mara
 Security
 22
+Jyri
+Veterinarian
+1
+Pipsa
+Park Ranger
+5
+Topi
+Security
+3
+John
+Veterinarian
+3
+Kaisa
+Manager
+32
+Lotta
+Caretaker
+1
+Pena
+Park ranger
+23
+Mara
+Security
+22
 

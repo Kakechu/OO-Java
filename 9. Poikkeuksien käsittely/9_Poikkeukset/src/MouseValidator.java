@@ -60,7 +60,7 @@ class TestMouseExceptions {
                 MouseValidator.validateMouse(name, age);
                 syoteOK = true;
 
-            } catch (InvalidMouseNameException | InvalidMouseAgeException e) {
+            } catch (InvalidMouseNameException | InvalidMouseAgeException e) { //voi olla myös kaksi catchia
                 System.out.println("Mouse validation error: " + e.getMessage());
             }
         } while (!syoteOK);

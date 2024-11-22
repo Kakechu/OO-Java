@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -57,9 +56,12 @@ public class Park {
         return dinosaurs;
     }
 
+    //Ilman tarkistusta
+    /*
     public void readDinosaursFromFile() throws FileNotFoundException {
         Scanner FScanner = new Scanner(new File("dinosaurs.txt"));
-        //System.out.println("The program start reading the information of all dinosaurs from file.");
+        //Scanner FScanner = new Scanner(new File("dinosaurus.txt"));
+
         while (FScanner.hasNext()) {
             String name = FScanner.nextLine();
             int age = Integer.parseInt(FScanner.nextLine());
@@ -67,10 +69,35 @@ public class Park {
             MainFoodSource mainFoodSource = MainFoodSource.valueOf(FScanner.nextLine());
             dinosaurs.add(new Dinosaur(name, age, species, mainFoodSource));
         }
-        //System.out.println("The information of all dinosaurs is read.");
         FScanner.close();
         this.numberOfDinosaurs = dinosaurs.size();
     }
+
+     */
+
+        public void readDinosaursFromFile() throws FileNotFoundException {
+        Scanner FScanner = new Scanner(new File("dinosaurs.txt"));
+
+        while (FScanner.hasNext()) {
+            try {
+                String name = FScanner.nextLine();
+                int age = Integer.parseInt(FScanner.nextLine());  // Mahdollinen virhe: int
+                String species = FScanner.nextLine();
+                MainFoodSource mainFoodSource = MainFoodSource.valueOf(FScanner.nextLine());  // Mahdollinen virhe
+                dinosaurs.add(new Dinosaur(name, age, species, mainFoodSource));
+            } catch (NumberFormatException e) {
+                System.out.println("Error parsing age.");
+                // Ohitetaan virheellinen rivi ja siirrytään seuraavaan dinosaurukseen
+                if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (species)
+                if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (main food source)
+            }
+        }
+        FScanner.close();
+        this.numberOfDinosaurs = dinosaurs.size();
+    }
+
+
+
 
     public Dinosaur findDinosaur(String name) {
         for (Dinosaur d : this.dinosaurs) {
@@ -80,6 +107,11 @@ public class Park {
         }
         return null;
     }
+
+
+
+
+
 
     public ArrayList<Dinosaur> addDinosaur(Dinosaur d) {
         //Tässä ei vielä maksimimäärän tarkistusta
@@ -194,6 +226,7 @@ public class Park {
             System.out.println("You want to update the dinosaur " + d);
             System.out.println("What would you like to update?");
             System.out.println("n(ame) - a(ge) - c(ancel)");
+            System.out.println("w(eight) - e(at) - f(avorite foods)");
             String answer = scanner.nextLine();
 
             switch (answer.charAt(0)) {
@@ -210,7 +243,36 @@ public class Park {
                     d.setAge(age);
                     System.out.println("The dino is now " + d.getAge() + " years old.");
                     break;
+                // updateDinosaurWeight-testi:
+                case 'w':
+                    try {
+                        System.out.println("Give new weight: ");
+                        double weight = scanner.nextDouble();
+                        scanner.nextLine();
+                        updateDinosaurWeight(d, weight);
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    }
+                    //eat-testi
+                case 'e':
+                    try {
+                        System.out.println("Give new weight: ");
+                        double weight = scanner.nextDouble();
+                        scanner.nextLine();
+                        eatAndUpdateDinosaurWeight(d, weight);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("A mistake occurred, cannot update weight.");
+                    } finally {
+                        d.eat();
+                    }
+                    //favorite food -testi
+                case 'f':
+                    printFavoriteFoods();
+
+
                     /*
+
                 case 's':
                     System.out.println("Give the new species: ");
                     String species = scanner.nextLine();
@@ -236,6 +298,60 @@ public class Park {
         } else {
             System.out.println("The dinosaur doesn't exist.");
         }
+    }
+
+
+
+    public void updateDinosaurWeight(Dinosaur d, double weight) {
+        if (weight < 0) {
+            throw new IllegalArgumentException("The weight cannot be negative");
+        }
+        d.setDinosaurWeight(weight);
+    }
+
+    public void eatAndUpdateDinosaurWeight(Dinosaur d, double weight) {
+        if (weight < 1000 || weight > 5000) {
+            throw new IllegalArgumentException("The weight is not within allowed limits.");
+        }
+        d.setDinosaurWeight(weight);
+    }
+
+    public void printFavoriteFoods() {
+        System.out.println("Give your name");
+        String name = scanner.nextLine();
+        if (isManager(name)) {
+            System.out.println("Favorite foods: ");
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new FileReader("favoriteFoods.txt"));
+                String line = reader.readLine();
+                while (line != null) {
+                    System.out.println(line);
+                    line = reader.readLine();
+                }
+
+
+            } catch (FileNotFoundException e) {
+                System.out.println("Error: file was not found: " + e.getMessage());
+            }
+            catch (IOException e) {
+                System.out.println("Error in reading the file: " + e.getMessage());
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        System.out.println("Error closing the file: " + e.getMessage());
+                    }
+                }
+            }
+
+        } else {
+            System.out.println("Only the manager has access to favorite foods.");
+        }
+
+        //onko manageri?
+
     }
     /*
     public Dinosaur[] addDinosaur(Dinosaur d) {
@@ -282,6 +398,16 @@ public class Park {
         FScanner.close();
         this.numberOfEmployees = employees.size();
     }
+/*
+    public void writeEmployeeToFile(Employee e, String filename) {
+        try {
+
+        } catch {
+
+        }
+    }
+
+ */
 
     public Employee findEmployee(String name) {
         for (Employee e : this.employees) {
@@ -418,6 +544,22 @@ public class Park {
     public ArrayList<Employee> getEmployees() {
         return this.employees;
     }
+
+    public boolean isManager(String name) {
+
+        for (Employee e : this.employees) {
+            try {
+                if (e.getName().equalsIgnoreCase(name) && e.getEmployeeRole().equals(EmployeeRole.MANAGER)) {
+                    return true;
+                }
+            } catch (NullPointerException ex) {
+                System.out.println("Error: no role determined for this employee.");
+            }
+        }
+
+        return false;
+    }
+
 
     @Override
     public String toString() {

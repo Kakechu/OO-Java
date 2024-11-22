@@ -31,10 +31,20 @@ public class App2 {
 
         Dinosaur angryD = new LandDinosaur("Mörkö", 12, "T-Rex", DinosaurType.CARNIVORE);
         //angryD.roar();
-
 */
+        //Tehtäväsarja 7 - tehtävän 2 testi
+        //Park park = new Park("Testipark");
+        //Dinosaur d = new Dinosaur("Dino", 123, "T-Rex", "land", MainFoodSource.CARNIVORE, DinosaurClass.LAND,123);
 
 
+        //Tehtäväsarja 7 - tehtävän 5 testi
+        /*
+        Health health = new Health();
+        Dinosaur dvacc = new Dinosaur("Roko", 12, "Tyrannusaurus rex", "land", MainFoodSource.CARNIVORE);
+        dvacc.createVaccinationCard(2020, 2020);
+        health.dinoParvoVaccination.vaccinate(dvacc);
+
+         */
     }
 
     public void start() throws FileNotFoundException {
@@ -45,10 +55,17 @@ public class App2 {
         //System.out.println(park);
 
         // read the files for employees and for dinosaurs
-        park.readEmployeesFromFile();
+        try {
+            park.readEmployeesFromFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("Työntekijätiedostoa ei löydy. Tarkista tiedostonimi.");
+        }
+        try {
+            park.readDinosaursFromFile();
+        } catch (FileNotFoundException e) {
+            System.out.println("Tiedostoa ei löydy. Tarkista tiedostonimi.");
+        }
         //System.out.println(park);
-        park.readDinosaursFromFile();
-        System.out.println(park);
 /*
         while (true) {
             displayMenu(park.getName());
@@ -209,7 +226,7 @@ public class App2 {
         String answer = scanner.nextLine();
 
         switch (answer.charAt(0)) {
-            case 'a': //yksittäinen merkki, yksinkertaiset hipsut, mjonoissa kaksinkertaisit
+            case 'a': //yksittäinen merkki, yksinkertaiset hipsut, mjonoissa kaksinkertaiset
 
                 // Onko tarpeeksi työntekijöitä?
                 if (park.getNumberOfDinosaurs() < park.getNumberOfEmployees() / park.getEmployeesToDinosaur() ) {

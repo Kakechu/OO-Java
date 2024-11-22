@@ -30,3 +30,19 @@ Leveä Lisko
 215
 Plateosaurus
 HERBIVORE
+Marjukka
+1234
+Allosaurus
+CARNIVORE
+Unto
+435
+Brachiosaurus
+HERBIVORE
+Kaarlo
+12
+Spinosaurus
+CARNIVORE
+Teemu
+45
+Tyrannosaurus rex
+CARNIVORE

@@ -6,6 +6,10 @@ public class Employee {
     private EmployeeRole employeeRole;
 
     public Employee(String name, String jobTitle, int yearsOfExperience) {
+        if (name == null || name.length() > 40) {
+            throw new IllegalArgumentException("Name cannot be null and must be 40 characters or less.");
+        }
+
         this.name = name;
         this.jobTitle = jobTitle;
         this.yearsOfExperience = yearsOfExperience;
@@ -25,6 +29,8 @@ public class Employee {
     public EmployeeRole getEmployeeRole() {
         return employeeRole;
     }
+
+
 
     @Override
     public boolean equals(Object obj) {
