@@ -4,6 +4,7 @@ public class Dinosaur {
     private String species;
     private String liveOn; // UML-lisäys
     private MainFoodSource mainFoodSource;
+    private String enclosure;
 
     private DinosaurClass dinosaurClass; //Ei virallisessa versiossa
     //private boolean isHealthy; //Ei virallisessa versiossa

@@ -5,26 +5,27 @@ import java.util.Scanner;
 
 public class Park {
 
-    public static Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in); //LD
 
     private String name;
     private ArrayList<Employee> employees;
-    private ArrayList<Dinosaur> dinosaurs;
+    private ArrayList<Dinosaur> dinosaurs; //LD
 
-    int maxAmountOfDinosaurs = 12;
+    int maxAmountOfDinosaurs = 12; //LD
     int employeesToDinosaur = 2;
 
     //ArrayList<Dinosaur> flyingDinosaurs; //tehtäväsarja 5, 6
-    private Dinosaur[] flyingDinos = new Dinosaur[5]; //Teht 5_6: 6.	Luo Dinosaur-tyyppinen taulukko. Talleta kaikki lentoliskot tähän taulukkoon
+    //Teht 5_6: 6.	Luo Dinosaur-tyyppinen taulukko. Talleta kaikki lentoliskot tähän taulukkoon
+    private Dinosaur[] flyingDinos = new Dinosaur[5]; //LD
     private ArrayList<Employee> veterinarians = new ArrayList<>();
 
     private int numberOfEmployees = 0;
-    private int numberOfDinosaurs = 0;
-    private int numberOfFlyingDinos = 0;
+    private int numberOfDinosaurs = 0; //LD
+    private int numberOfFlyingDinos = 0; //LD
 
     public Park(String name) {
         this.name = name;
-        this.dinosaurs = new ArrayList<Dinosaur>();
+        this.dinosaurs = new ArrayList<Dinosaur>(); //MUUTA
         this.employees = new ArrayList<Employee>();
     }
 
