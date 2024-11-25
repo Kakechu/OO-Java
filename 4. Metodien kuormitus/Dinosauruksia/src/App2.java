@@ -50,18 +50,18 @@ public class App2 {
     public void start() throws FileNotFoundException {
         // This is the main loop of the application. It will keep running until the user decides to exit.
         // New park object, with name
-        Park park = new Park("Dinosaur Park in TUAS");
+        Park park = new Park("Dinosaur Park in TUAS", "Turku");
 
         //System.out.println(park);
 
         // read the files for employees and for dinosaurs
         try {
-            park.readEmployeesFromFile();
+            park.getEmployeeManager().readEmployeesFromFile();
         } catch (FileNotFoundException e) {
             System.out.println("Työntekijätiedostoa ei löydy. Tarkista tiedostonimi.");
         }
         try {
-            park.readDinosaursFromFile();
+            park.getDinosaurManager().readDinosaursFromFile();
         } catch (FileNotFoundException e) {
             System.out.println("Tiedostoa ei löydy. Tarkista tiedostonimi.");
         }
@@ -189,26 +189,7 @@ public class App2 {
             }
             break;
         }
-        /*
-        Dinosaur dinosaur;
-        switch (dinoClass) {
-            case FLYING:
-                dinosaur = new FlyingDinosaur(name, age, species, liveOn, mainFoodSource);
-                break;
-            case AQUATIC:
-                dinosaur = new AquaticDinosaur(name, age, species, liveOn, mainFoodSource);
-                break;
-            case LAND:
-                dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
-                break;
-            default:
-                System.out.println("Invalid type. Default type: land dinosaur.");
-                dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
-        }
-         */
 
-
-        //return new Dinosaur(name, age, species, dinosaurType);
         return dinosaur;
     }
 
@@ -252,7 +233,7 @@ public class App2 {
 
                 break;
             case 'r':
-                System.out.println("There are currently " + park.getDinosaurs().size() + " dinosaurs in the park.");
+                System.out.println("There are currently " + park.getNumberOfDinosaurs() + " dinosaurs in the park.");
                 System.out.println("Which dinosaur do you want to remove? Give a name or a number.");
                 String toRemove = scanner.nextLine().toLowerCase();
 
@@ -274,8 +255,8 @@ public class App2 {
             case 'u':
                 System.out.println("Give the name of the dinosaur: ");
                 answer = scanner.nextLine();
-                Dinosaur dinoToUpdate = park.findDinosaur(answer);
-                park.updateDinosaur(dinoToUpdate);
+                Dinosaur dinoToUpdate = park.getDinosaurManager().findDinosaur(answer);
+                park.getDinosaurManager().updateDinosaur(dinoToUpdate);
 
                 break;
             case 'c':
@@ -378,7 +359,8 @@ public class App2 {
                 break;
             case 'r':
                 System.out.println("Your park needs " + park.getEmployeesToDinosaur() * park.getNumberOfDinosaurs() + " employees.");
-                if (park.getEmployees().size() < park.getEmployeesToDinosaur() * park.getDinosaurs().size()) {
+                // MIKSI SIZE?? getNumberOfEmployees? park.getEmployees().size()
+                if (park.getNumberOfEmployees() < park.getEmployeesToDinosaur() * park.getNumberOfDinosaurs()) { //park.getDinosaurs().size()
                     System.out.println("You can't go below the minimum amount of employees.");
                     break;
                 }
@@ -401,8 +383,8 @@ public class App2 {
             case 'u':
                 System.out.println("Give the name of the employee: ");
                 String nameToUpdate = scanner.nextLine();
-                Employee empToUpdate = park.findEmployee(nameToUpdate);
-                park.updateEmployee(empToUpdate);
+                Employee empToUpdate = park.getEmployeeManager().findEmployee(nameToUpdate);
+                park.getEmployeeManager().updateEmployee(empToUpdate);
                 //System.out.println("You want to update the employee " + empToUpdate);
                 break;
             case 'c':
