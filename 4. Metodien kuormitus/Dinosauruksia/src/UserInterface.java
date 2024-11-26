@@ -55,7 +55,7 @@ public class UserInterface {
 
         switch (choice) {
             case 1: app.manageEmployees(park); break; //
-            case 2: app.manageDinosaurs(park); break; //siirretään apista??
+            case 2: park.manageDinosaurs(); break; //siirretään apista??
             //case 3: manageTickets(park); break;
             case 4: checkParkStatus(park); break;
             //case 5: handleSpecialEvents(park); break;

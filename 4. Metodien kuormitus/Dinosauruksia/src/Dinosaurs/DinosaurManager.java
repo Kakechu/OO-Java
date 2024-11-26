@@ -51,7 +51,76 @@ public class DinosaurManager {
         this.numberOfDinosaurs = dinosaurs.size();
     }
 
-    // Apumetodi dinosaurusten löytämiseen
+
+
+    // Creating dinosaur by asking the user to input info
+    public Dinosaur askDinosaurInfo() {
+        System.out.println(" D name: ");
+        String name = scanner.nextLine();
+        System.out.println(" D age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println(" D species: ");
+        String species = scanner.nextLine();
+
+        MainFoodSource mainFoodSource = getMainFoodSource();
+
+        Dinosaur dinosaur = getDinosaurType(name, age, species, mainFoodSource);
+        return dinosaur;
+    }
+    // Help method to get mainFoodSource
+    private MainFoodSource getMainFoodSource() {
+        MainFoodSource mainFoodSource;
+        while (true) {
+            System.out.println(" Enter the main food source: C(ARNIVORE), H(ERBIVORE), O(MNIVORE): ");
+            String foodChoice = scanner.nextLine().toUpperCase();
+
+            switch (foodChoice.charAt(0)) {
+                case 'C':
+                    mainFoodSource = MainFoodSource.CARNIVORE;
+                    break;
+                case 'H':
+                    mainFoodSource = MainFoodSource.HERBIVORE;
+                    break;
+                case 'O':
+                    mainFoodSource = MainFoodSource.OMNIVORE;
+                    break;
+                default:
+                    System.out.println("Please enter a valid choice.");
+                    continue;
+            }
+            break;
+        }
+        return mainFoodSource;
+    }
+
+    // Help method to get dinosaurType and to create the dinosaur
+    private Dinosaur getDinosaurType(String name, int age, String species, MainFoodSource mainFoodSource) {
+        Dinosaur dinosaur;
+        while (true) {
+            System.out.println(" D lives on l(and), w(ater) or s(ky)?");
+            String liveOn = scanner.nextLine().toLowerCase();
+            switch (liveOn) {
+                case "s":
+                    dinosaur = new FlyingDinosaur(name, age, species, liveOn, mainFoodSource);
+                    break;
+                case "w":
+                    dinosaur = new AquaticDinosaur(name, age, species, liveOn, mainFoodSource);
+                    break;
+                case "l":
+                    dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
+                    break;
+                default:
+                    System.out.println("Please enter a valid type.");
+                    continue;
+            }
+            break;
+        }
+        return dinosaur;
+    }
+
+
+    // Help method to find dinosaur by name
     public Dinosaur findDinosaur(String name) {
         for (Dinosaur d : this.dinosaurs) {
             if (d.getName().equalsIgnoreCase(name)) {
