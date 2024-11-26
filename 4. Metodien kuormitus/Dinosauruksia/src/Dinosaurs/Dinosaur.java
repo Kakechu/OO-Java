@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 public class Dinosaur {
     private String name;
     private int age;
@@ -36,7 +38,7 @@ public class Dinosaur {
         }
 
         if (age < 65 || age > 230) {
-            throw new IllegalArgumentException("Dinosaur age must be between 65 and 230 million years.");
+            throw new IllegalArgumentException("Dinosaurs.Dinosaur age must be between 65 and 230 million years.");
         }
 
         this.name = name;
@@ -57,7 +59,7 @@ public class Dinosaur {
         this.dinosaurWeight = dinosaurWeight;
     }
 /*
-    public Dinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource, DinosaurClass dinosaurClass, VaccinationCard vaccinationCard) {
+    public Dinosaurs.Dinosaur(String name, int age, String species, String liveOn, Dinosaurs.MainFoodSource mainFoodSource, Dinosaurs.DinosaurClass dinosaurClass, Dinosaurs.VaccinationCard vaccinationCard) {
         this.name = name;
         this.age = age;
         this.species = species;
@@ -112,7 +114,7 @@ public class Dinosaur {
     }
 
     /*
-    public MainFoodSource getMainFoodSource() {
+    public Dinosaurs.MainFoodSource getMainFoodSource() {
         return mainFoodSource;
     }
 
@@ -172,7 +174,7 @@ public class Dinosaur {
 
     @Override
     public String toString() {
-        return "Dinosaur{" +
+        return "Dinosaurs.Dinosaur{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", species='" + species + '\'' +

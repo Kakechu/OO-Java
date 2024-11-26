@@ -1,3 +1,5 @@
+package Employees;
+
 public enum EmployeeRole {
     MANAGER,
     SECURITY,

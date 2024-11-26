@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 import java.util.Scanner;
 
 public class Health {

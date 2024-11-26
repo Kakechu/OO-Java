@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -182,14 +184,14 @@ public class DinosaurManager {
     }
 
     /*
-        public void updateDinosaurWeight(Dinosaur d, double weight) {
+        public void updateDinosaurWeight(Dinosaurs.Dinosaur d, double weight) {
         if (weight < 0) {
             throw new IllegalArgumentException("The weight cannot be negative");
         }
         d.setDinosaurWeight(weight);
     }
 
-    public void eatAndUpdateDinosaurWeight(Dinosaur d, double weight) {
+    public void eatAndUpdateDinosaurWeight(Dinosaurs.Dinosaur d, double weight) {
         if (weight < 1000 || weight > 5000) {
             throw new IllegalArgumentException("The weight is not within allowed limits.");
         }

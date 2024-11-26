@@ -1,3 +1,5 @@
+package Employees;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -168,9 +170,9 @@ public class EmployeeManager {
     /*
         public boolean isManager(String name) {
 
-        for (Employee e : this.employees) {
+        for (Employees.Employee e : this.employees) {
             try {
-                if (e.getName().equalsIgnoreCase(name) && e.getEmployeeRole().equals(EmployeeRole.MANAGER)) {
+                if (e.getName().equalsIgnoreCase(name) && e.getEmployeeRole().equals(Employees.EmployeeRole.MANAGER)) {
                     return true;
                 }
             } catch (NullPointerException ex) {
@@ -181,7 +183,7 @@ public class EmployeeManager {
         return false;
     }
 
-        public ArrayList<Employee> removeEmployee(Employee o) { //ei tarvita objektin perusteella?
+        public ArrayList<Employees.Employee> removeEmployee(Employees.Employee o) { //ei tarvita objektin perusteella?
         // Etsi ensin se olio, joka halutaan poistaa
         //minimimäärän tarkistus
         //System.out.println("Anna poistettavan tyÃ¶ntekijÃ¤n nimi: ");

@@ -1,5 +1,7 @@
+import Dinosaurs.*;
+import Employees.*;
+
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App2 {
@@ -7,44 +9,8 @@ public class App2 {
 
     public static void main(String[] args) throws FileNotFoundException {
         App2 main = new App2();
-        main.start(); //HUOMHUOMHUOM
+        main.start();
 
-        //Tehtäväsarja 4 - tehtävän 7 testi
-        /*
-        Food f1 = new Food("pizza", "yes", 15);
-        System.out.println(f1);
-
-        Ticket t1 = new Ticket(10,  "Kake", "12.12.2024");
-        System.out.println(t1);
-
-         */
-
-        //Tehtäväsarja 5, osa 2: testit
-/*
-        Dinosaur dino = new FlyingDinosaur("Dinonen", 123, "Dino", DinosaurType.CARNIVORE);
-        dino.getSick();
-        Veterinarian vet = new Veterinarian("Kake", "Vet", 123, "Dinot");
-        vet.checkHealth(dino);
-        vet.giveMedicine(dino);
-        dino.isHealthy();
-
-
-        Dinosaur angryD = new LandDinosaur("Mörkö", 12, "T-Rex", DinosaurType.CARNIVORE);
-        //angryD.roar();
-*/
-        //Tehtäväsarja 7 - tehtävän 2 testi
-        //Park park = new Park("Testipark");
-        //Dinosaur d = new Dinosaur("Dino", 123, "T-Rex", "land", MainFoodSource.CARNIVORE, DinosaurClass.LAND,123);
-
-
-        //Tehtäväsarja 7 - tehtävän 5 testi
-        /*
-        Health health = new Health();
-        Dinosaur dvacc = new Dinosaur("Roko", 12, "Tyrannusaurus rex", "land", MainFoodSource.CARNIVORE);
-        dvacc.createVaccinationCard(2020, 2020);
-        health.dinoParvoVaccination.vaccinate(dvacc);
-
-         */
     }
 
     public void start() throws FileNotFoundException {
@@ -52,91 +18,132 @@ public class App2 {
         // New park object, with name
         Park park = new Park("Dinosaur Park in TUAS", "Turku");
 
-        //System.out.println(park);
 
         // read the files for employees and for dinosaurs
         try {
             park.getEmployeeManager().readEmployeesFromFile();
-        } catch (FileNotFoundException e) {
-            System.out.println("Työntekijätiedostoa ei löydy. Tarkista tiedostonimi.");
-        }
-        try {
             park.getDinosaurManager().readDinosaursFromFile();
         } catch (FileNotFoundException e) {
-            System.out.println("Tiedostoa ei löydy. Tarkista tiedostonimi.");
-        }
-        //System.out.println(park);
-/*
-        while (true) {
-            displayMenu(park.getName());
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            handleMenuChoice(choice, park);
+            System.out.println("Error reading files: " + e.getMessage());
         }
 
- */
 
         while (true) {
-            displayMenu(park.getName());
-            int choice;
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-            } else {
-                System.out.println("Invalid input. Please enter a number between 1 and 6.");
-                scanner.nextLine();
-                continue;
-            }
-            handleMenuChoice(choice, park);
+            UserRole userRole = askUserRole();
+            handleRoleSpecificMenus(park, userRole);
         }
-
     }
 
-    public void displayMenu(String parkName) {
-        System.out.println("\n\nWelcome to *** " + parkName + " *** ");
-        System.out.println("1. Manage Dinosaur");
-        System.out.println("2. Manage Park Employees");
+
+    public UserRole askUserRole() {
+        System.out.println("Who is using the application?");
+        System.out.println("1. Manager");
+        System.out.println("2. Employee");
+        System.out.println("3. Visitor");
+        int choice = getValidInt("Enter the number corresponding to your role: ");
+
+        switch (choice) {
+            case 1: return UserRole.MANAGER;
+            case 2: return UserRole.EMPLOYEE;
+            case 3: return UserRole.VISITOR;
+            default:
+                System.out.println("Invalid choice, defaulting to visitor.");
+                return UserRole.VISITOR;
+        }
+    }
+
+    public void handleRoleSpecificMenus(Park park, UserRole userRole) {
+        switch (userRole) {
+            case MANAGER: managerMenu(park); break;
+            case EMPLOYEE: employeeMenu(park); break;
+            case VISITOR: visitorMenu(park); break;
+            default: System.out.println("Invalid role.");
+        }
+    }
+
+    // User-specific menus
+    public void managerMenu(Park park) {
+        System.out.println("\n\nWelcome to *** " + park.getName() + " *** ");
+        System.out.println("\nManager Menu");
+        System.out.println("1. Manage Employees");
+        System.out.println("2. Manage Dinosaurs");
         System.out.println("3. Manage Tickets");
         System.out.println("4. Check Park Status");
         System.out.println("5. Handle Special Events");
-        System.out.println("6. Exit");
-        System.out.println("Enter your choice: ");
-    }
+        System.out.println("6. Back To Main Menu ");
+        System.out.println("7. Exit");
 
-    public void handleMenuChoice(int choice, Park park) {
+        int choice = getValidInt("Enter your choice: ");
+
         switch (choice) {
-            case 1:
-                manageDinosaurs(park);
-                break;
-            case 2:
-                manageEmployees(park);
-                break;
-            case 3:
-                // manageTickets(park);
-                break;
-            case 4:
-                checkParkStatus();
-                break;
-            case 5:
-                // handleSpecialEvents
-                break;
-            case 6:
-                System.out.println("Exiting...");
-                System.exit(0);
-            default:
-                System.out.println("Invalid choice. Please enter a number between 1 and 6.");
+            case 1: manageEmployees(park); break;
+            case 2: manageDinosaurs(park); break;
+            //case 3: manageTickets(park); break;
+            case 4: checkParkStatus(park); break;
+            //case 5: handleSpecialEvents(park); break;
+            case 6: return;
+            case 7: System.out.println("Exiting..."); System.exit(0);
+            default: System.out.println("Invalid choice.");
         }
     }
 
-    public void checkParkStatus() {
-        // Assuming the park is open from 8 am to 6 pm.
-        int currentHour = java.time.LocalTime.now().getHour();
-        if (currentHour >= 5 && currentHour < 8) {
-            System.out.println("The park is currently open.");
-        } else {
-            System.out.println("The park is currently closed.");
+    public void employeeMenu(Park park) {
+        System.out.println("\n\nWelcome to *** " + park.getName() + " *** ");
+        System.out.println("\nEmployee Menu");
+        System.out.println("1. Check Park Status");
+        System.out.println("2. Update Dinosaur Information");
+        System.out.println("3. Back To Main Menu ");
+        System.out.println("4. Exit");
+        int choice = getValidInt("Enter your choice: ");
+
+        switch (choice) {
+            case 1: checkParkStatus(park); break;
+            case 2:
+                System.out.println("Give the name of the dinosaur to update: ");
+                String dinoName = scanner.nextLine();
+                Dinosaur dino = park.getDinosaurManager().findDinosaur(dinoName);
+                park.getDinosaurManager().updateDinosaur(dino);
+                break;
+            case 3: return;
+            case 4: System.out.println("Exiting..."); System.exit(0);
+            default: System.out.println("Invalid choice.");
         }
     }
+
+    public void visitorMenu(Park park) {
+        System.out.println("\n\nWelcome to *** " + park.getName() + " *** ");
+        System.out.println("\nVisitor Menu");
+        System.out.println("1. View Park Status");
+        System.out.println("2. Buy ticket");
+        System.out.println("3. Back To Main Menu ");
+        System.out.println("4. Exit");
+        int choice = getValidInt("Enter your choice: ");
+
+        switch (choice) {
+            case 1: checkParkStatus(park); break;
+            case 2: break; //BUY TICKET
+            case 3: return;
+            case 4: System.out.println("Exiting..."); System.exit(0);
+            default: System.out.println("Invalid choice.");
+        }
+    }
+
+
+//muuta niin, että tulostaa aukioloajat
+    public void checkParkStatus(Park park) {
+        int openingHour = park.getOpeningHour();
+        int closingHour = park.getClosingHour();
+        int currentHour = java.time.LocalTime.now().getHour();
+
+        if (currentHour >= openingHour && currentHour < closingHour) {
+            System.out.println("The park \"" + park.getName() + "\" is currently open.");
+        } else {
+            System.out.println("The park \"" + park.getName() + "\" is currently closed.");
+        }
+    }
+
+
+
 
     public Dinosaur askDinosaurInfo() {
         System.out.println(" D name: ");
@@ -201,7 +208,6 @@ public class App2 {
         for(Dinosaur d: park.getDinosaurs()) {
             System.out.println(d);
         }
-
 
         System.out.println("a(dd) - r(emove) - u(pdate) - c(ancel)");
         String answer = scanner.nextLine();
@@ -285,14 +291,14 @@ public class App2 {
         int yearsOfExperience = scanner.nextInt();
         scanner.nextLine();
 
-        //Employee employee1 = new Employee(name, jobTitle, yearsOfExperience);
+        //Employees.Employee employee1 = new Employees.Employee(name, jobTitle, yearsOfExperience);
 
-        //ParkManager, SecurityOfficer ja Veterinarian?
+        //Employees.ParkManager, Employees.SecurityOfficer ja Employees.Veterinarian?
 
         System.out.println("Enter employee role: M(ANAGER), S(ECURITY), V(ETERINARIAN) or C(ARETAKER)?");
         String roleAnswer = scanner.nextLine().toUpperCase();
         EmployeeRole employeeRole;
-        //EmployeeRole employeeRole = EmployeeRole.valueOf(scanner.nextLine().toUpperCase());
+        //Employees.EmployeeRole employeeRole = Employees.EmployeeRole.valueOf(scanner.nextLine().toUpperCase());
 
 
         Employee employee;
@@ -317,7 +323,7 @@ public class App2 {
                     //lisää taulukkoon???
                     break;
                 case "C":
-                    System.out.println("Care taker specialization: ");
+                    System.out.println("Employees.Care taker specialization: ");
                     String takesCareOf = scanner.nextLine();
                     employee = new CareTaker(name, jobTitle, yearsOfExperience, takesCareOf);
                     break;
@@ -377,7 +383,7 @@ public class App2 {
                     park.removeEmployee(empToRemove);
                 }
 
-                //Employee empToRemove = park.findEmployee(name);
+                //Employees.Employee empToRemove = park.findEmployee(name);
                 //park.removeEmployee(empToRemove);
                 break;
             case 'u':
@@ -389,6 +395,19 @@ public class App2 {
                 break;
             case 'c':
                 break;
+        }
+    }
+    // apumetodit
+    public int getValidInt(String prompt) {
+        while (true) {
+            System.out.println(prompt);
+            String input = scanner.nextLine();
+
+            try {
+                return Integer.parseInt(input); // Yritetään muuntaa syöte kokonaisluvuksi.
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
         }
     }
 

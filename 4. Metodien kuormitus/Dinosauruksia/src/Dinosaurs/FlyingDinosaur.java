@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 public class FlyingDinosaur extends Dinosaur {
 
     private boolean hasFeathers;
@@ -32,7 +34,7 @@ public class FlyingDinosaur extends Dinosaur {
 
     @Override
     public String toString() {
-        return super.toString() +  ", FlyingDinosaur{" +
+        return super.toString() +  ", Dinosaurs.FlyingDinosaur{" +
                 "hasFeathers=" + hasFeathers +
                 '}';
     }

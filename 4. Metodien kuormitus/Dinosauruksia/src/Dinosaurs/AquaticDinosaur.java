@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 public class AquaticDinosaur extends Dinosaur {
     private boolean canSwim;
     private DinosaurClass dinosaurClass;
@@ -17,7 +19,7 @@ public class AquaticDinosaur extends Dinosaur {
 
     @Override
     public String toString() {
-        return super.toString() + ", AquaticDinosaur{" +
+        return super.toString() + ", Dinosaurs.AquaticDinosaur{" +
                 "canSwim=" + canSwim +
                 '}';
     }

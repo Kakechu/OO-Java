@@ -1,5 +1,8 @@
-import java.io.*;
-import java.lang.reflect.Array;
+import Dinosaurs.Dinosaur;
+import Dinosaurs.DinosaurManager;
+import Employees.Employee;
+import Employees.EmployeeManager;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,6 +14,9 @@ public class Park {
     private String location;
     private DinosaurManager dinosaurManager;
     private EmployeeManager employeeManager;
+    private int openingHour;
+    private int closingHour;
+
 
     private ArrayList<Employee> employees;//LE
 
@@ -24,14 +30,13 @@ public class Park {
     public Park(String name, String location) {
         this.name = name;
         this.location = location;
-        //this.dinosaurs = new ArrayList<Dinosaur>(); //MUUTA
-        //this.employees = new ArrayList<Employee>();
+        //this.dinosaurs = new ArrayList<Dinosaurs.Dinosaur>(); //MUUTA
+        //this.employees = new ArrayList<Employees.Employee>();
         this.dinosaurManager = new DinosaurManager();
         this.employeeManager = new EmployeeManager();
 
     }
 
-    // park related stuff
     // Getters and setters
     public String getName() {
         return name;
@@ -53,9 +58,21 @@ public class Park {
         return this.employeesToDinosaur * dinosaurManager.getNumberOfDinosaurs();
     }
 
+    public int getOpeningHour() {
+        return openingHour;
+    }
 
+    public int getClosingHour() {
+        return closingHour;
+    }
 
+    public void setOpeningHour(int openingHour) {
+        this.openingHour = openingHour;
+    }
 
+    public void setClosingHour(int closingHour) {
+        this.closingHour = closingHour;
+    }
 
     // dinosaur related stuff
     public ArrayList<Dinosaur> getDinosaurs() {

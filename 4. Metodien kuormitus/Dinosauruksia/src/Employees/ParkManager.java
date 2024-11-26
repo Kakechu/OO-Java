@@ -1,3 +1,5 @@
+package Employees;
+
 public class ParkManager extends Employee {
     private double bonus;
 
@@ -9,7 +11,7 @@ public class ParkManager extends Employee {
 
     @Override
     public String toString() {
-        return super.toString() + ", ParkManager{" +
+        return super.toString() + ", Employees.ParkManager{" +
                 "bonus=" + bonus +
                 '}';
     }

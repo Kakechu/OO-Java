@@ -1,3 +1,5 @@
+package Employees;
+
 public class SecurityOfficer extends Employee implements Security {
     private boolean hasGunLicense;
 
@@ -14,7 +16,7 @@ public class SecurityOfficer extends Employee implements Security {
 
     @Override
     public String toString() {
-        return super.toString() + ", SecurityOfficer{" +
+        return super.toString() + ", Employees.SecurityOfficer{" +
                 "hasGunLicense=" + hasGunLicense +
                 '}';
     }

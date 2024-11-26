@@ -1,4 +1,6 @@
-public class Veterinarian extends Employee { //implements VetWork
+package Employees;
+
+public class Veterinarian extends Employee { //implements Employees.VetWork
     private String specialization;
 
     public Veterinarian(String name, String jobTitle, int yearsOfExperience, String specialization) {
@@ -8,12 +10,12 @@ public class Veterinarian extends Employee { //implements VetWork
 
     }
 /*
-    public void checkHealth(Dinosaur d) {
+    public void checkHealth(Dinosaurs.Dinosaur d) {
         d.isHealthy();
         //System.out.println(d.getName() + " is healthy: " + d.isHealthy());
     }
 
-    public void giveMedicine(Dinosaur d) {
+    public void giveMedicine(Dinosaurs.Dinosaur d) {
         d.getHealthy();
         System.out.println(this.getName() + " healed " + d.getName());
         d.isHealthy();
@@ -24,7 +26,7 @@ public class Veterinarian extends Employee { //implements VetWork
 
     @Override
     public String toString() {
-        return super.toString() + ", Veterinarian{" +
+        return super.toString() + ", Employees.Veterinarian{" +
                 "specialization='" + specialization + '\'' +
                 '}';
     }

@@ -1,3 +1,7 @@
+package Employees;
+
+import Dinosaurs.Dinosaur;
+
 public class CareTaker extends Employee implements Care {
     private String specialization;
 
@@ -8,17 +12,17 @@ public class CareTaker extends Employee implements Care {
     }
     @Override
     public void feedDino(Dinosaur d) {
-        System.out.println("Dinosaur " + d + " is fed.");
+        System.out.println("Dinosaurs.Dinosaur " + d + " is fed.");
     }
 
     @Override
     public void petDino(Dinosaur d) {
-        System.out.println("Dinosaur " + " is purring.");
+        System.out.println("Dinosaurs.Dinosaur " + " is purring.");
     }
 
     @Override
     public String toString() {
-        return super.toString() + ", CareTaker{" +
+        return super.toString() + ", Employees.CareTaker{" +
                 "specialization='" + specialization + '\'' +
                 '}';
     }

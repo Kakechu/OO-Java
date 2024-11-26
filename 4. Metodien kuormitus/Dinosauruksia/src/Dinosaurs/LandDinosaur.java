@@ -1,12 +1,14 @@
+package Dinosaurs;
+
 public class LandDinosaur extends Dinosaur {
     private boolean isPredator;
     private DinosaurClass dinosaurClass;
 
     /*
-    public LandDinosaur(String name, int age, String species, MainFoodSource mainFoodSource) {
+    public Dinosaurs.LandDinosaur(String name, int age, String species, Dinosaurs.MainFoodSource mainFoodSource) {
         super(name, age, species, mainFoodSource);
         this.isPredator = true;
-        this.dinosaurClass = DinosaurClass.LAND;
+        this.dinosaurClass = Dinosaurs.DinosaurClass.LAND;
     }
 
      */
@@ -38,7 +40,7 @@ public class LandDinosaur extends Dinosaur {
 
     @Override
     public String toString() {
-        return super.toString() + ", LandDinosaur{" +
+        return super.toString() + ", Dinosaurs.LandDinosaur{" +
                 "isPredator=" + isPredator +
                 '}';
     }

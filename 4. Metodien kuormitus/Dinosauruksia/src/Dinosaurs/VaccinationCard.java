@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 public class VaccinationCard {
     private int lastDinoParvoVaccinationYear;
     private int lastPreventExtinctionVaccinationYear;

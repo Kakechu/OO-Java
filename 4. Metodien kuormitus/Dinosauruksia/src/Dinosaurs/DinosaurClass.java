@@ -1,3 +1,5 @@
+package Dinosaurs;
+
 public enum DinosaurClass {
     //GENERAL,
     FLYING,
