@@ -24,7 +24,7 @@ public class Test {
         //angryD.roar();
 */
     //Tehtäväsarja 7 - tehtävän 2 testi
-    //Park park = new Park("Testipark");
+    //Park.Park park = new Park.Park("Testipark");
     //Dinosaurs.Dinosaur d = new Dinosaurs.Dinosaur("Dino", 123, "T-Rex", "land", Dinosaurs.MainFoodSource.CARNIVORE, Dinosaurs.DinosaurClass.LAND,123);
 
 

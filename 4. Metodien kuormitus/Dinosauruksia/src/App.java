@@ -1,5 +1,5 @@
-import Dinosaurs.*;
 import Employees.*;
+import Park.Park;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -22,7 +22,7 @@ public class App {
     public void start() throws FileNotFoundException {
         // This is the main loop of the application. It will keep running until the user decides to exit.
         // New park object, with name
-        Park park = new Park("Dinosaur Park in TUAS", "Turku");
+        Park park = new Park("Dinosaur Park.Park in TUAS", "Turku");
 
 
 

@@ -1,3 +1,5 @@
+package Park;
+
 import Dinosaurs.Dinosaur;
 import Dinosaurs.DinosaurManager;
 import Employees.Employee;
@@ -32,7 +34,7 @@ public class Park {
         this.location = location;
         //this.dinosaurs = new ArrayList<Dinosaurs.Dinosaur>(); //MUUTA
         //this.employees = new ArrayList<Employees.Employee>();
-        this.dinosaurManager = new DinosaurManager();
+        this.dinosaurManager = new DinosaurManager(this);
         this.employeeManager = new EmployeeManager();
 
     }
@@ -76,6 +78,14 @@ public class Park {
 
     // dinosaur related stuff
 
+    public ArrayList<Dinosaur> getDinosaurs() {
+        return dinosaurManager.getDinosaurs();
+    }
+
+    public int getNumberOfDinosaurs() {
+        return dinosaurManager.getNumberOfDinosaurs();
+    }
+/*
     public void manageDinosaurs() {
         System.out.println("All our dinosaurs: ");
         for (Dinosaur d : dinosaurManager.getDinosaurs()) {
@@ -149,13 +159,9 @@ public class Park {
     }
 
 
-    public ArrayList<Dinosaur> getDinosaurs() {
-        return dinosaurManager.getDinosaurs();
-    }
 
-    public int getNumberOfDinosaurs() {
-        return dinosaurManager.getNumberOfDinosaurs();
-    }
+ */
+
 
 
 
@@ -195,7 +201,7 @@ public class Park {
 
     @Override
     public String toString() {
-        return "Park{" +
+        return "Park.Park{" +
                 "name='" + name + '\'' +
                 //", employees=" + employees +
                 //", dinosaurs=" + dinosaurManager.getDinosaurs() + //Siis eikai kaikkia printata?

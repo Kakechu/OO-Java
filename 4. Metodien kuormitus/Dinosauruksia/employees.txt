@@ -2,7 +2,7 @@ Virpi
 Dinosaurs.Dinosaur specialist
 12
 John
-Park Ranger
+Park.Park Ranger
 6
 Sarah
 Employees.Veterinarian
@@ -32,7 +32,7 @@ Jyri
 Employees.Veterinarian
 1
 Pipsa
-Park Ranger
+Park.Park Ranger
 5
 Topi
 Employees.Security
@@ -47,7 +47,7 @@ Lotta
 Caretaker
 1
 Pena
-Park ranger
+Park.Park ranger
 23
 Mara
 Employees.Security
@@ -56,7 +56,7 @@ Jyri
 Employees.Veterinarian
 1
 Pipsa
-Park Ranger
+Park.Park Ranger
 5
 Topi
 Employees.Security
@@ -71,7 +71,7 @@ Lotta
 Caretaker
 1
 Pena
-Park ranger
+Park.Park ranger
 23
 Mara
 Employees.Security

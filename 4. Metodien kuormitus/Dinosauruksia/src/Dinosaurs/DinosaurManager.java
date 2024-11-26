@@ -1,4 +1,5 @@
 package Dinosaurs;
+import Park.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,9 +15,11 @@ public class DinosaurManager {
     int maxAmountOfDinosaurs = 12; // Tarkista, onko tarpeen.
     private int numberOfDinosaurs = 0;
     private int numberOfFlyingDinos = 0;
+    private Park park;
 
     // Konstruktori
-    public DinosaurManager() {
+    public DinosaurManager(Park park) {
+        this.park = park;
         this.dinosaurs = new ArrayList<>();
     }
 
@@ -51,6 +54,81 @@ public class DinosaurManager {
         this.numberOfDinosaurs = dinosaurs.size();
     }
 
+//manager
+
+    public void manageDinosaurs() {
+        System.out.println("All our dinosaurs: ");
+        for (Dinosaur d : getDinosaurs()) {
+            System.out.println(d);
+        }
+
+        System.out.println("a(dd) - r(emove) - u(pdate) - s(how all dinosaurs) - c(ancel)");
+        String answer = scanner.nextLine();
+
+        switch (answer.charAt(0)) {
+            case 'a':
+                handleAddDinosaur();
+                break;
+            case 'r':
+                handleRemoveDinosaur();
+                break;
+            case 'u':
+                handleUpdateDinosaur();
+                break;
+            case 's':
+                handleShowDinosaurs();
+                break;
+            case 'c':
+                break;
+        }
+    }
+
+
+    private void handleAddDinosaur() {
+        if (getNumberOfDinosaurs() < park.getNumberOfEmployees() / park.getEmployeesToDinosaur()) {
+            System.out.println("You can add dino. You need " + park.getMinAmountOfEmployees() + " employees.");
+            Dinosaur d = askDinosaurInfo();
+
+            if (d != null) {
+                if (getDinosaurs().contains(d)) {
+                    System.out.println("This dinosaur already exists.");
+                } else {
+                    addDinosaur(d);
+                    System.out.println("Dinosaur added successfully.");
+                }
+            }
+        } else {
+            System.out.println("Not enough employees to take care of dino.");
+            //printtaa, miten monta työntekijää tarvitaan?
+        }
+    }
+
+    private void handleRemoveDinosaur() {
+        System.out.println("Which dinosaur do you want to remove? Give a name or a number.");
+        String toRemove = scanner.nextLine().toLowerCase();
+        if (isNumeric(toRemove)) {
+            int numAns = Integer.parseInt(toRemove) - 1; // Adjust user input to 0-based index
+            removeDinosaur(numAns);
+        } else {
+            removeDinosaur(toRemove);
+        }
+    }
+
+    private void handleUpdateDinosaur() {
+        System.out.println("Give the name of the dinosaur: ");
+        String answer = scanner.nextLine();
+        Dinosaur dinoToUpdate = findDinosaur(answer);
+        updateDinosaur(dinoToUpdate);
+    }
+
+    private void handleShowDinosaurs() {
+        System.out.println("All our dinosaurs: ");
+        for (Dinosaur d : getDinosaurs()) {
+            System.out.println(d);
+        }
+    }
+
+// end of manager
 
 
     // Creating dinosaur by asking the user to input info
@@ -120,7 +198,7 @@ public class DinosaurManager {
     }
 
 
-    // Help method to find dinosaur by name
+    // Helper method to find dinosaur by name
     public Dinosaur findDinosaur(String name) {
         for (Dinosaur d : this.dinosaurs) {
             if (d.getName().equalsIgnoreCase(name)) {
@@ -129,6 +207,19 @@ public class DinosaurManager {
         }
         return null;
     }
+
+    // Metodi sen määrittämiseen, onko käyttäjän syöte int vai String. Tarvitaan esim. poistossa.
+    private static boolean isNumeric(String answer) {
+        try {
+            Integer.parseInt(answer);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
+
 
     // Dinosaurusten lisäys ja poisto
     public ArrayList<Dinosaur> addDinosaur(Dinosaur d) {

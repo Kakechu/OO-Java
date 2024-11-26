@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import Dinosaurs.*;
-import Employees.*;
+import Park.Park;
 
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
@@ -46,7 +46,7 @@ public class UserInterface {
         System.out.println("1. Manage Employees");
         System.out.println("2. Manage Dinosaurs");
         System.out.println("3. Manage Tickets");
-        System.out.println("4. Check Park Status");
+        System.out.println("4. Check Park.Park Status");
         System.out.println("5. Handle Special Events");
         System.out.println("6. Back To Main Menu ");
         System.out.println("7. Exit");
@@ -55,7 +55,7 @@ public class UserInterface {
 
         switch (choice) {
             case 1: app.manageEmployees(park); break; //
-            case 2: park.manageDinosaurs(); break; //siirretään apista??
+            case 2: park.getDinosaurManager().manageDinosaurs(); break; //siirretään apista??
             //case 3: manageTickets(park); break;
             case 4: checkParkStatus(park); break;
             //case 5: handleSpecialEvents(park); break;
@@ -68,7 +68,7 @@ public class UserInterface {
     public void employeeMenu(Park park) {
         System.out.println("\n\nWelcome to *** " + park.getName() + " *** ");
         System.out.println("\nEmployee Menu");
-        System.out.println("1. Check Park Status");
+        System.out.println("1. Check Park.Park Status");
         System.out.println("2. Update Dinosaur Information");
         System.out.println("3. Back To Main Menu ");
         System.out.println("4. Exit");
@@ -107,7 +107,7 @@ public class UserInterface {
     public void visitorMenu(Park park) {
         System.out.println("\n\nWelcome to *** " + park.getName() + " *** ");
         System.out.println("\nVisitor Menu");
-        System.out.println("1. View Park Status");
+        System.out.println("1. View Park.Park Status");
         System.out.println("2. Buy ticket");
         System.out.println("3. Back To Main Menu ");
         System.out.println("4. Exit");
@@ -134,6 +134,10 @@ public class UserInterface {
             System.out.println("The park \"" + park.getName() + "\" is currently closed.");
         }
     }
+
+
+
+
 
     // apumetodit
     public int getValidInt(String prompt) {
