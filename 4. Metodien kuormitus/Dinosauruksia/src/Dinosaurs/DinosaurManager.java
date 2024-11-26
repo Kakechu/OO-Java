@@ -1,6 +1,7 @@
 package Dinosaurs;
-import Park.*;
 
+import Park.*;
+import Employees.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -8,14 +9,13 @@ import java.util.Scanner;
 
 public class DinosaurManager {
     public static Scanner scanner = new Scanner(System.in);
-
+    private Park park;
     private ArrayList<Dinosaur> dinosaurs;
     private Dinosaur[] flyingDinos = new Dinosaur[5];
 
     int maxAmountOfDinosaurs = 12; // Tarkista, onko tarpeen.
     private int numberOfDinosaurs = 0;
     private int numberOfFlyingDinos = 0;
-    private Park park;
 
     // Konstruktori
     public DinosaurManager(Park park) {
@@ -130,7 +130,6 @@ public class DinosaurManager {
 
 // end of manager
 
-
     // Creating dinosaur by asking the user to input info
     public Dinosaur askDinosaurInfo() {
         System.out.println(" D name: ");
@@ -143,8 +142,7 @@ public class DinosaurManager {
 
         MainFoodSource mainFoodSource = getMainFoodSource();
 
-        Dinosaur dinosaur = getDinosaurType(name, age, species, mainFoodSource);
-        return dinosaur;
+        return getDinosaurType(name, age, species, mainFoodSource);
     }
     // Help method to get mainFoodSource
     private MainFoodSource getMainFoodSource() {

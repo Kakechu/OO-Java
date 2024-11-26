@@ -46,7 +46,7 @@ public class UserInterface {
         System.out.println("1. Manage Employees");
         System.out.println("2. Manage Dinosaurs");
         System.out.println("3. Manage Tickets");
-        System.out.println("4. Check Park.Park Status");
+        System.out.println("4. Check Park Status");
         System.out.println("5. Handle Special Events");
         System.out.println("6. Back To Main Menu ");
         System.out.println("7. Exit");
@@ -54,7 +54,7 @@ public class UserInterface {
         int choice = getValidInt("Enter your choice: ");
 
         switch (choice) {
-            case 1: app.manageEmployees(park); break; //
+            case 1: park.getEmployeeManager().manageEmployees(park); break; // MUUTA
             case 2: park.getDinosaurManager().manageDinosaurs(); break; //siirretään apista??
             //case 3: manageTickets(park); break;
             case 4: checkParkStatus(park); break;
@@ -68,7 +68,7 @@ public class UserInterface {
     public void employeeMenu(Park park) {
         System.out.println("\n\nWelcome to *** " + park.getName() + " *** ");
         System.out.println("\nEmployee Menu");
-        System.out.println("1. Check Park.Park Status");
+        System.out.println("1. Check Park Status");
         System.out.println("2. Update Dinosaur Information");
         System.out.println("3. Back To Main Menu ");
         System.out.println("4. Exit");
