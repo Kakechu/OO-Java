@@ -1,17 +1,21 @@
 package Dinosaurs;
 
+import Events.EventManager;
 import Park.*;
 import Employees.*;
+import Events.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class DinosaurManager {
     public static Scanner scanner = new Scanner(System.in);
     private Park park;
     private ArrayList<Dinosaur> dinosaurs;
     private Dinosaur[] flyingDinos = new Dinosaur[5];
+    private Health health;
+    private HashMap<Dinosaur, String> favoriteFoods;
 
     int maxAmountOfDinosaurs = 12; // Tarkista, onko tarpeen.
     private int numberOfDinosaurs = 0;
@@ -21,6 +25,8 @@ public class DinosaurManager {
     public DinosaurManager(Park park) {
         this.park = park;
         this.dinosaurs = new ArrayList<>();
+        this.health = new Health();
+        this.favoriteFoods = new HashMap<>();
     }
 
     // Getterit
@@ -33,6 +39,7 @@ public class DinosaurManager {
     }
 
     // Reading dinosaurs from file
+    /*
     public void readDinosaursFromFile() throws FileNotFoundException {
         Scanner FScanner = new Scanner(new File("dinosaurs.txt"));
 
@@ -41,18 +48,70 @@ public class DinosaurManager {
                 String name = FScanner.nextLine();
                 int age = Integer.parseInt(FScanner.nextLine());  // Mahdollinen virhe: int
                 String species = FScanner.nextLine();
+                String liveOn = FScanner.nextLine().toLowerCase();
                 MainFoodSource mainFoodSource = MainFoodSource.valueOf(FScanner.nextLine());  // Mahdollinen virhe
-                dinosaurs.add(new Dinosaur(name, age, species, mainFoodSource));
+                dinosaurs.add(new Dinosaur(name, age, species, liveOn, mainFoodSource));
             } catch (NumberFormatException e) {
                 System.out.println("Error parsing age.");
                 // Ohitetaan virheellinen rivi ja siirrytään seuraavaan dinosaurukseen
                 if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (species)
+                if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (liveOn)
                 if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (main food source)
             }
         }
         FScanner.close();
         this.numberOfDinosaurs = dinosaurs.size();
     }
+
+     */
+
+    public void readDinosaursFromFile() throws FileNotFoundException {
+        Scanner FScanner = new Scanner(new File("dinosaurs.txt"));
+
+        while (FScanner.hasNext()) {
+            try {
+                String name = FScanner.nextLine();
+                int age = Integer.parseInt(FScanner.nextLine());  // Mahdollinen virhe: int
+                String species = FScanner.nextLine();
+                String liveOn = FScanner.nextLine().toLowerCase();
+                MainFoodSource mainFoodSource = MainFoodSource.valueOf(FScanner.nextLine());  // Mahdollinen virhe
+
+                Dinosaur dinosaur = null;
+
+                // Luodaan dinosauruksen olio elinympäristön mukaan
+                switch (liveOn) {
+                    case "land":
+                        dinosaur = new LandDinosaur(name, age, species, liveOn, mainFoodSource);
+                        break;
+                    case "water":
+                        dinosaur = new AquaticDinosaur(name, age, species, liveOn, mainFoodSource);
+                        break;
+                    case "sky":
+                        dinosaur = new FlyingDinosaur(name, age, species, liveOn, mainFoodSource);
+                        break;
+                    default:
+                        System.out.println("Unknown habitat: " + liveOn + ". Skipping dinosaur.");
+                        continue;  // Jos elinympäristö on tuntematon, ohita tämä dinosaurus ja siirry seuraavaan
+                }
+
+                // Lisää dinosaurus listalle
+                if (dinosaur != null) {
+                    dinosaurs.add(dinosaur);
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Error parsing age.");
+                // Ohitetaan virheellinen rivi ja siirrytään seuraavaan dinosaurukseen
+                if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (species)
+                if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (liveOn)
+                if (FScanner.hasNextLine()) FScanner.nextLine();  // Skippaa virheellisen rivin (main food source)
+            }
+        }
+        FScanner.close();
+        this.numberOfDinosaurs = dinosaurs.size();
+    }
+
+
 
 //manager
 
@@ -193,6 +252,104 @@ public class DinosaurManager {
             break;
         }
         return dinosaur;
+    }
+
+
+    public ArrayList<Dinosaur> getDinosaursByType(String type) {
+        ArrayList<Dinosaur> dinosaursByType = new ArrayList<>();;
+        switch (type) {
+            case "land":
+                for (Dinosaur d : this.getDinosaurs()) {
+                    if (d.getDinosaurClass() == DinosaurClass.LAND) {
+                        dinosaursByType.add(d);
+                    }
+                }
+                break;
+            case "water":
+                for (Dinosaur d : this.getDinosaurs()) {
+                    if (d.getDinosaurClass() == DinosaurClass.AQUATIC) {
+                        dinosaursByType.add(d);
+                    }
+                }
+                break;
+            case "flying":
+                for (Dinosaur d : this.getDinosaurs()) {
+                    if (d.getDinosaurClass() == DinosaurClass.FLYING) {
+                        dinosaursByType.add(d);
+                    }
+                }
+                break;
+        }
+        return dinosaursByType;
+    }
+
+
+    public void setFavoriteFood() {
+        System.out.println("Give dinosaur name: ");
+        String name = scanner.nextLine();
+        Dinosaur dinosaur = findDinosaur(name);
+        System.out.println("Set new favorite food: ");
+        String food = scanner.nextLine();
+
+        if (dinosaurs.contains(dinosaur)) {
+            favoriteFoods.put(dinosaur, food);
+            System.out.println(dinosaur.getName() + " now loves " + food);
+        } else {
+            System.out.println("Dinosaur not found in the park.");
+        }
+    }
+
+    public void listFavoriteFoods() {
+        Iterator<Dinosaur> iterator = dinosaurs.iterator();
+        while (iterator.hasNext()) {
+            Dinosaur dino = iterator.next();
+            String food = favoriteFoods.get(dino);
+            if (food != null) {
+                System.out.println(dino.getName() + " loves " + food);
+            } else {
+                System.out.println(dino.getName() + " has no favorite food.");
+            }
+        }
+    }
+
+    public void createFavoriteFoodReport() {
+
+        String filename = "favorite_food_report.txt";
+
+        try (PrintWriter kirjoittaja = new PrintWriter(filename)) {
+
+            Iterator<Map.Entry<Dinosaur, String>> iterator = favoriteFoods.entrySet().iterator();
+            // Map: key-value pairs: halutaan sekä avain että arvo
+
+            while (iterator.hasNext()) {
+                Map.Entry<Dinosaur, String> entry = iterator.next();
+                Dinosaur dino = entry.getKey();
+                String food = entry.getValue();
+
+
+                if (food != null) {
+                    kirjoittaja.println(dino.getName() + ": " + food);
+                } else {
+                    kirjoittaja.println(dino.getName() + ": unknown food");
+                }
+            }
+            System.out.println("Report created!");
+
+        } catch (Exception e) {
+            System.out.println("Error in creating file: " + e.getMessage());
+        }
+    }
+
+
+
+    public void vaccinateDinosaur() {
+        handleShowDinosaurs();
+        System.out.println("Which dinosaur do you want to vaccinate?");
+        String name = scanner.nextLine();
+        Dinosaur dinoToVac = findDinosaur(name);
+
+        this.health.dinoParvoVaccination.vaccinate(dinoToVac);
+        this.health.preventExtinctionVaccination.vaccinate(dinoToVac);
     }
 
 

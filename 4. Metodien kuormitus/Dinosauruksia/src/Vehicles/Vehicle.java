@@ -1,5 +1,5 @@
 package Vehicles;
 
-abstract class Vehicle {
-    abstract void travel();
+public abstract class Vehicle {
+    public abstract void travel();
 }

@@ -1,5 +1,7 @@
 package Dinosaurs;
 
+import java.util.Random;
+
 public class Dinosaur {
     private String name;
     private int age;
@@ -7,6 +9,7 @@ public class Dinosaur {
     private String liveOn; // UML-lisäys
     private MainFoodSource mainFoodSource;
     private String enclosure;
+    private String favoriteFood;
 
     private DinosaurClass dinosaurClass; //Ei virallisessa versiossa
     //private boolean isHealthy; //Ei virallisessa versiossa
@@ -19,17 +22,7 @@ public class Dinosaur {
     }
 
     // tämä konstruktori tiedostosta lukemista varten
-    public Dinosaur(String name, int age, String species, MainFoodSource mainFoodSource) {
-        this.name = name;
-        this.age = age;
-        this.species = species;
-        this.liveOn = "Land";
-        this.mainFoodSource = mainFoodSource;
-        this.dinosaurClass = DinosaurClass.LAND; //maalisko oletusarvoksi
-        //this.isHealthy = true; //oletusarvoisesti dinot terveitä
 
-
-    }
     // tämä konstruktori dinon lisäämistä varten
     public Dinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
 
@@ -46,6 +39,7 @@ public class Dinosaur {
         this.species = species;
         this.liveOn = liveOn;
         this.mainFoodSource = mainFoodSource;
+        this.vaccinationCard = new VaccinationCard(0,0);
     }
 
     // Tämä konstruktori luotu updateDinosaurWeight-metodia varten.
@@ -57,19 +51,42 @@ public class Dinosaur {
         this.mainFoodSource = mainFoodSource;
         this.dinosaurClass = dinosaurClass;
         this.dinosaurWeight = dinosaurWeight;
-    }
-/*
-    public Dinosaurs.Dinosaur(String name, int age, String species, String liveOn, Dinosaurs.MainFoodSource mainFoodSource, Dinosaurs.DinosaurClass dinosaurClass, Dinosaurs.VaccinationCard vaccinationCard) {
-        this.name = name;
-        this.age = age;
-        this.species = species;
-        this.liveOn = liveOn;
-        this.mainFoodSource = mainFoodSource;
-        this.dinosaurClass = dinosaurClass;
-        this.vaccinationCard = vaccinationCard;
+        this.enclosure = assignEnclosure(this.liveOn);
+
+        Random random = new Random();
+        int randomYear = 2000 + random.nextInt(11); //2000-2010
+        this.vaccinationCard = new VaccinationCard(randomYear,randomYear);
     }
 
- */
+
+    private String assignEnclosure(String liveOn) {
+        switch (liveOn.toLowerCase()) {
+            case "land":
+                return "Desert World";
+            case "water":
+                return "Water World";
+            case "air":
+                return "Cloud Castle";
+            default:
+                throw new IllegalArgumentException("Unknown liveOn type: " + liveOn);
+        }
+    }
+
+    public String getEnclosure() {
+        return enclosure;
+    }
+
+    public void setEnclosure(String enclosure) {
+        this.enclosure = enclosure;
+    }
+
+    public String getFavoriteFood() {
+        return favoriteFood;
+    }
+
+    public void setFavoriteFood(String favoriteFood) {
+        this.favoriteFood = favoriteFood;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -113,12 +130,6 @@ public class Dinosaur {
         return vaccinationCard;
     }
 
-    /*
-    public Dinosaurs.MainFoodSource getMainFoodSource() {
-        return mainFoodSource;
-    }
-
-     */
 
     public DinosaurClass getDinosaurClass() {
         return dinosaurClass;
@@ -151,26 +162,6 @@ public class Dinosaur {
     public void eat() {
         System.out.println("Dino is eating.");
     }
-    /*
-    public void getSick() {
-        this.isHealthy = false;
-    }
-
-    public void getHealthy() {
-        this.isHealthy = true;
-    }
-
-    public void isHealthy() {
-
-        if (this.isHealthy == true) {
-            System.out.println(this.getName() + " is healthy.");
-        } else {
-            System.out.println(this.getName() + " is sick.");
-        }
-
-    }
-
-     */
 
     @Override
     public String toString() {

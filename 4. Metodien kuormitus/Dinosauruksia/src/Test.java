@@ -5,7 +5,7 @@ public class Test {
         Food f1 = new Food("pizza", "yes", 15);
         System.out.println(f1);
 
-        Vehicles.Ticket t1 = new Vehicles.Ticket(10,  "Kake", "12.12.2024");
+        Park.Park.Ticket t1 = new Park.Park.Ticket(10,  "Kake", "12.12.2024");
         System.out.println(t1);
 
          */

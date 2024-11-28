@@ -33,20 +33,26 @@ public class EmployeeManager {
     }
 
     // Reading employees from file
+
     public void readEmployeesFromFile() throws FileNotFoundException {
         Scanner FScanner = new Scanner(new File("employees.txt"));
-        //System.out.println("The program starts reading the information of all employees.");
-        while(FScanner.hasNext()) {
+        System.out.println("The program starts reading the information of all employees.");
+        while(FScanner.hasNextLine()) {
             String name = FScanner.nextLine();
+            System.out.println("Name" + name);
             String jobTitle = FScanner.nextLine();
+            System.out.println(jobTitle);
             int yearsOfExperience = FScanner.nextInt();
             FScanner.nextLine();
+            System.out.println(yearsOfExperience);
             employees.add(new Employee(name, jobTitle, yearsOfExperience));
         }
         //System.out.println("The information of all employees is read.");
         FScanner.close();
         this.numberOfEmployees = employees.size();
     }
+
+
 //manager
 
 
@@ -99,8 +105,8 @@ public class EmployeeManager {
         }
 
         // Inform the user of the current number of employees
-        System.out.println("There are currently " + park.getEmployees().size() + " employees in the park.");
-        for (Employee employee : park.getEmployees()) {
+        System.out.println("There are currently " + getEmployees().size() + " employees in the park.");
+        for (Employee employee : getEmployees()) {
             System.out.println(employee);
         }
         // Ask the user which employee they want to remove
@@ -158,7 +164,7 @@ public class EmployeeManager {
 
         Employee employee;
         while (true) {
-            System.out.println("Enter employee role: M(ANAGER), S(ECURITY), V(ETERINARIAN) or C(ARETAKER)?");
+            System.out.println("Enter employee role: M(ANAGER), S(ECURITY), V(ETERINARIAN), C(ARETAKER) or J(ANITOR)?");
             String roleAnswer = scanner.nextLine().toUpperCase();
 
             switch (roleAnswer) {
@@ -181,9 +187,12 @@ public class EmployeeManager {
                     //lisää taulukkoon???
                     break;
                 case "C":
-                    System.out.println("Employees.Care taker specialization: ");
+                    System.out.println("Care taker specialization: ");
                     String takesCareOf = scanner.nextLine();
                     employee = new CareTaker(name, jobTitle, yearsOfExperience, takesCareOf);
+                    break;
+                case "J":
+                    employee = new Janitor(name, jobTitle, yearsOfExperience);
                     break;
                 default:
                     System.out.println("Please enter a valid type.");
@@ -203,6 +212,7 @@ public class EmployeeManager {
             this.veterinarians.add(e);
             System.out.println("Eläinlääkäri lisätty");
         }
+
     }
 
     // Työntekijän poistaminen nimen perusteella

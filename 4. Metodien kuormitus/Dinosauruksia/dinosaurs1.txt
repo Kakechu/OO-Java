@@ -1,95 +1,48 @@
 Rex
 66
 Tyrannosaurus rex
-land
 CARNIVORE
 Herb
-69
+68
 Brachiosaurus
-land
 OMNIVORE
 Kolmisarvinaama
 66
 Triceratops
-land
 HERBIVORE
 Tyranniliskojen Kuningas
 66
 Tyrannosaurus rex
-land
 CARNIVORE
 Harjalisko Kattolisko
 149
 Stegosaurus
-land
 OMNIVORE
 Pitkä Kaula Käsivarsilisko
 153
 Brachiosaurus
-land
 HERBIVORE
 Nopea Varas
 75
 Velociraptor
-land
 HERBIVORE
 Leveä Lisko
 215
 Plateosaurus
-land
 HERBIVORE
 Marjukka
-123
+223
 Allosaurus
-land
 CARNIVORE
 Unto
-135
+123
 Brachiosaurus
-land
 HERBIVORE
 Kaarlo
-125
+92
 Spinosaurus
-water
 CARNIVORE
 Teemu
-95
+85
 Tyrannosaurus rex
-land
 CARNIVORE
-Vesilisko
-110
-Plesiosaurus
-water
-CARNIVORE
-Sateenkaarilisko
-120
-Ichthyosaurus
-water
-CARNIVORE
-Merihaukka
-115
-Mosasaurus
-water
-CARNIVORE
-Lentävä Lisko
-70
-Archaeopteryx
-sky
-CARNIVORE
-Taivaankulkija
-80
-Pteranodon
-sky
-OMNIVORE
-Taivaslisko
-90
-Quetzalcoatlus
-sky
-CARNIVORE
-Ilmavirta
-100
-Pterodaustro
-sky
-OMNIVORE

@@ -1,21 +1,17 @@
 package Dinosaurs;
 
+import java.util.Random;
+
 public class LandDinosaur extends Dinosaur {
     private boolean isPredator;
+    private boolean canDance;
     private DinosaurClass dinosaurClass;
 
-    /*
-    public Dinosaurs.LandDinosaur(String name, int age, String species, Dinosaurs.MainFoodSource mainFoodSource) {
-        super(name, age, species, mainFoodSource);
-        this.isPredator = true;
-        this.dinosaurClass = Dinosaurs.DinosaurClass.LAND;
-    }
-
-     */
 
     public LandDinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
         super(name, age, species, liveOn, mainFoodSource);
         this.isPredator = false;
+        this.canDance = new Random().nextBoolean();
         this.dinosaurClass = DinosaurClass.LAND;
     }
 
@@ -24,8 +20,15 @@ public class LandDinosaur extends Dinosaur {
         return dinosaurClass;
     }
 
+    public boolean canDance() {
+        return canDance;
+    }
 
-/*
+    public boolean isPredator() {
+        return isPredator;
+    }
+
+    /*
     @Override
     public void roar() {
         System.out.println("Rrrrooooaaaarrr");

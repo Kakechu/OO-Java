@@ -30,6 +30,7 @@ public class App {
         try {
             park.getEmployeeManager().readEmployeesFromFile();
             park.getDinosaurManager().readDinosaursFromFile();
+            park.getEventManager().readEventsFromFile();
         } catch (FileNotFoundException e) {
             System.out.println("Error reading files: " + e.getMessage());
         }
@@ -37,7 +38,7 @@ public class App {
 
         while (true) {
             UserRole userRole = userInterface.askUserRole();
-            userInterface.handleRoleSpecificMenus(park, userRole, this);
+            userInterface.handleRoleSpecificMenus(park, userRole);
         }
     }
 

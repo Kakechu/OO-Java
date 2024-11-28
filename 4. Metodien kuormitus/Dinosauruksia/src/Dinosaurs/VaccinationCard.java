@@ -16,7 +16,7 @@ public class VaccinationCard {
         } else if (vaccinationName.equals("preventExtinctionVaccination")) {
             return lastPreventExtinctionVaccinationYear;
         }
-        return 0; // Oletusarvo jos tuntematon rokotus
+        return 2000; // Oletusarvo jos tuntematon rokotus
     }
 
     public void setLastVaccinationYear(String vaccinationName, int year) {

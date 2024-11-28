@@ -1,15 +1,24 @@
 package Dinosaurs;
+import java.util.Random;
 
 public class FlyingDinosaur extends Dinosaur {
 
     private boolean hasFeathers;
+    private boolean canFly;
     private DinosaurClass dinosaurClass = DinosaurClass.FLYING;
+
 
     public FlyingDinosaur(String name, int age, String species, String liveOn, MainFoodSource mainFoodSource) {
         super(name, age, species, liveOn, mainFoodSource);
         this.hasFeathers = true;
         this.dinosaurClass = DinosaurClass.FLYING;
+        this.canFly = new Random().nextBoolean();
     }
+
+    public boolean canFly() {
+        return canFly;
+    }
+
     /*
     @Override
     public void fly() {

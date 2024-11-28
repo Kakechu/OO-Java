@@ -2,5 +2,6 @@ public enum UserRole {
     MANAGER,
     EMPLOYEE,
     VETERINARIAN,
-    VISITOR
+    VISITOR,
+    ADMIN
 }
